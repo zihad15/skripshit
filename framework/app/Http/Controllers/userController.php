@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use DB;
-class userController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +13,7 @@ class userController extends Controller
      */
     public function index()
     {
-        $user = DB::table('user')
-        ->join('mahasiswa','user.id_user','=','mahasiswa.id_user')
-        ->get();
-        return view('admin/user',compact('user'));
+        //
     }
 
     /**
@@ -27,7 +23,7 @@ class userController extends Controller
      */
     public function create()
     {
-        return view('admin/tambah_data_user');   
+        //
     }
 
     /**
