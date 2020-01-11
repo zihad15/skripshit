@@ -100,54 +100,32 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('permohonan.index') }}">
-              <i class="menu-icon mdi mdi-clipboard-text"></i>
-              <span class="menu-title">Permohonan</span>
-              @if(Auth::user()->role_id == 3 && App\Helper::countPetugasTask() > 0)
-                <span class="badge badge-pill badge-danger" style="margin-right: 20%">
-                    {{ App\Helper::countPetugasTask() }}
-                </span>
-              @endif
-              @if(Auth::user()->role_id == 2 && App\Helper::countKabagTask() > 0)
-                <span class="badge badge-pill badge-danger" style="margin-right: 20%">
-                    {{ App\Helper::countKabagTask() }}
-                </span>
-              @endif
-            </a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Surat</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="menu-icon mdi mdi-chart-line"></i>
-              <span class="menu-title">Prasyarat</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="menu-icon mdi mdi-restart"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('data_user.index') }}"> User </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/data_mahasiswa"> Mahasiswa </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/data_sdm"> SDM </a>
-                </li>
-              </ul>
-            </div>
-          </li> -->
+          @if(Auth::user()->role_id == 1)
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="menu-icon mdi mdi-account-box"></i>
+                <span class="menu-title">Users</span>
+              </a>
+            </li>
+          @endif
+          @if(Auth::user()->role_id != 1)
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('permohonan.index') }}">
+                <i class="menu-icon mdi mdi-clipboard-text"></i>
+                <span class="menu-title">Permohonan</span>
+                @if(Auth::user()->role_id == 3 && App\Helper::countPetugasTask() > 0)
+                  <span class="badge badge-pill badge-danger" style="margin-right: 20%">
+                      {{ App\Helper::countPetugasTask() }}
+                  </span>
+                @endif
+                @if(Auth::user()->role_id == 2 && App\Helper::countKabagTask() > 0)
+                  <span class="badge badge-pill badge-danger" style="margin-right: 20%">
+                      {{ App\Helper::countKabagTask() }}
+                  </span>
+                @endif
+              </a>
+            </li>
+          @endif
         </ul>
       </nav>
       <!-- partial -->

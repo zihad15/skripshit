@@ -21,9 +21,6 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('data_user', 'UsersController');
-Route::resource('sdm', 'SdmController');
-
 Route::group(['prefix' => 'permohonan', 'middleware' => 'auth', 'as' => 'permohonan.'], function(){
 	Route::resource('/', 'PermohonanController');
 	Route::post('updatePratinjau', 'PermohonanController@updatePratinjau');
@@ -35,16 +32,9 @@ Route::group(['prefix' => 'permohonan', 'middleware' => 'auth', 'as' => 'permoho
 	Route::post('tolak', 'PermohonanController@tolak');
 });
 
-Route::resource('mahasiswa', 'MahasiswaController');
-Route::get('home-mahasiswa', 'MahasiswaController@homeMahasiswa')->name('home-mahasiswa');
-
-Route::get('/data_prasyarat', function () {
-    return view('admin/data_prasyarat');
-});
-Route::get('/update_profil', function () {
-    return view('admin/update_profil');
-});
-
-Route::get('/update_data_prasyarat', function () {
-    return view('admin/update_data_prasyarat');
+Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], function(){
+	Route::resource('/', 'UserController');
+	Route::get('edit/{id}', 'UserController@edit');
+	Route::post('update', 'UserController@update');
+	Route::post('destroy', 'UserController@destroy');
 });

@@ -23,6 +23,10 @@ class PermohonanController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role_id == 1) {
+            return abort(401);
+        }
+
         $permohonan = DB::table('permohonan')->leftJoin('users', 'users.id', '=', 'permohonan.user_id')
                         ->leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id');
 
@@ -42,6 +46,10 @@ class PermohonanController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role_id == 1) {
+            return abort(401);
+        }
+        
         return view('permohonan.create');
     }
 
