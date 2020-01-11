@@ -21,6 +21,7 @@
 </head>
 
 <body>
+
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -94,7 +95,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{{ url('/') }}">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -151,7 +152,7 @@
       </nav>
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">
+        <div class="content-wrapper" @if(request()->is('/') || request()->is('home')) style="background-image: url('assets/images/bg_trilogi.png'); background-size: cover; background-repeat: no-repeat; background-position: center;" @endif>
             @yield('content')
         </div>
         <!-- content-wrapper ends -->
