@@ -42,7 +42,14 @@
     <br>
     <table style="width: 100%">
       <tr>
-        <td style="text-align: right; padding-right: 6%;">Jakarta, {{ date('d M Y') }}</td>
+        <td style="text-align: right; padding-right: 6%;">
+          Jakarta, 
+          @if(isset($surat->tgl_acc_kabag))
+            {{ $surat->tgl_acc_kabag }}
+          @else
+            <label style="color: red;">menunggu persetujuan kabag.</label>
+          @endif
+        </td>
       </tr>
       <tr>
         <td></td>

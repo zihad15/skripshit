@@ -43,14 +43,14 @@
       	<td>{{ $user->name }}</td>
       </tr>
       <tr>
+        <td>NIM</td>
+        <td>:</td>
+        <td>{{ $user->nim_nip }}</td>
+      </tr>
+      <tr>
       	<td>Program Studi</td>
       	<td>:</td>
       	<td>{{ $prodi->nama_prodi }}</td>
-      </tr>
-      <tr>
-      	<td>NIM</td>
-      	<td>:</td>
-      	<td>{{ $user->nim_nip }}</td>
       </tr>
       <tr>
       	<td height="20"></td>

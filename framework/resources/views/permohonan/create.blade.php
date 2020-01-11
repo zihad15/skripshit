@@ -48,9 +48,13 @@
           </div>
           <div id="divcatatan" style="display: none;">
             <br>
-            <h5>Catatan</h5>
+            <label>Catatan</label>
+            <br>
+            <label style="color: red;">Isi catatan dengan alasan cuti (Jika CUTI),</label>
+            <br>
+            <label style="color: red;">Nama perusahaan/institusi, dan alamat (Jika Riset/Magang)</label>
             <div class="form-group">
-              <textarea class="form-control" name="catatan_surat" id="catatan_surat" placeholder="Tolong isi catatan sesuai dengan keperluan (Jika CUTI), atau Nama dan alamat (Jika Riset/Magang)"></textarea>
+              <textarea class="form-control" name="catatan_surat" id="catatan_surat" placeholder="Tolong isi catatan sesuai dengan alasan cuti (Jika CUTI), atau Nama dan alamat (Jika Riset/Magang)" style="height: 150px"></textarea>
             </div>
           </div>
         </div>

@@ -9,7 +9,10 @@ return [
 
 	'SEMESTER' => 'Gasal',
 	// 'SEMESTER' => 'Genap',
+	'SEMESTER_ANTONIM' => 'Genap',
+	// 'SEMESTER_ANTONIM' => 'Gasal',
 	'TAHUN_AKADEMIK' => '2019-2020',
+	'TAHUN_AKADEMIK_PLUS1' => '2020-2021',
 
 	// STATUS PERMOHONAN
 	'PERMOHONAN_BERHASIL_DIAJUKAN' 			=> "Permohonan berhasil diajukan",
@@ -36,8 +39,8 @@ return [
 		'KET_AKTIF' => ["KET-AKTIF", "Surat Keterangan Aktif"],
 		'KET_MAGANG' => ["SRT-MAGANG", "Surat Riset/Magang"],
 		'KET_CUTI' => ["KET-CUTI", "Surat Keterangan Cuti"],
-		'KET_AK01' => ["KET-AAK01", "Surat AK-01"],
-		'KET_AK02' => ["KET-AAK02", "Surat AK-02"],
+		'KET_AK01' => ["KET-AAK01", "Surat Keterangan AK-01"],
+		'KET_AK02' => ["KET-AAK02", "Surat Keterangan AK-02"],
 	],
 ];
 

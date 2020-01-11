@@ -53,13 +53,13 @@ class PermohonanController extends Controller
      */
     public function store(Request $request)
     {
-        $suratid = Surat::orderBy('id', 'DESC')->first();
-        $aisurat = !empty($suratid ? $suratid->id + 1 : 1);
         $nama_dan_code = Config('constants.NAMA_SURAT_DAN_CODE.'.$request->cons);
+        $suratindexing = Surat::where('code', $nama_dan_code[0])->orderBy('index_surat', 'DESC')->first();
+        $aisurat = !empty($suratindexing) ? $suratindexing->index_surat + 1 : 1;
 
-        $bukti_tf = (!empty($request->bukti_tf) ? $request->bukti_tf : "");
-        $cover_proposal = (!empty($request->cover_proposal) ? $request->cover_proposal : "");
-        $catatan_surat = (!empty($request->catatan_surat) ? $request->catatan_surat : "");
+        $bukti_tf = !empty($request->bukti_tf) ? $request->bukti_tf : "";
+        $cover_proposal = !empty($request->cover_proposal) ? $request->cover_proposal : "";
+        $catatan_surat = !empty($request->catatan_surat) ? $request->catatan_surat : "";
 
         $request->validate([
             "bukti_tf" => "mimes:jpeg,png,jpg|max:500000",
@@ -68,6 +68,7 @@ class PermohonanController extends Controller
         ]);
 
         $surat = new Surat();
+        $surat->index_surat = $aisurat;
         $surat->code = $nama_dan_code[0];
         $surat->nama_surat = $nama_dan_code[1];
         $surat->nomor_surat = "No.".$aisurat."/TRILOGI/ADAK/".$nama_dan_code[0]."/2020";
@@ -167,8 +168,11 @@ class PermohonanController extends Controller
 
         $permohonan = Permohonan::find($request->permohonan_id);
 
-        $permohonan->catatan = null;
-        $permohonan->status = Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN');
+        if ($bukti_tf != "" || $cover_proposal != "") {
+            $permohonan->catatan = null;
+            $permohonan->status = Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN');
+        }
+
         $permohonan->save();
 
         return redirect()->route('permohonan.index')->with('alert', 'Prasyarat berhasil diupdate!');
@@ -186,6 +190,14 @@ class PermohonanController extends Controller
 
         $surat->save();
 
+        if ($catatan_surat != "") {
+            $permohonan = Permohonan::find($request->permohonan_id);
+
+            $permohonan->catatan = null;
+            $permohonan->status = Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN');
+            $permohonan->save();
+        }
+
         return redirect()->route('permohonan.index')->with('alert', 'Catatan berhasil diupdate!');
     }
 
@@ -197,6 +209,18 @@ class PermohonanController extends Controller
 
         if ($surat->code == "KET-AKTIF") {
             return view('surat.ket_aktif', compact('surat', 'user', 'prodi'));
+        }
+
+        if ($surat->code == "SRT-MAGANG") {
+            return view('surat.ket_magang', compact('surat', 'user', 'prodi'));
+        }
+
+        if ($surat->code == "KET-CUTI") {
+            return view('surat.ket_cuti', compact('surat', 'user', 'prodi'));
+        }
+
+        if ($surat->code == "KET-AAK01") {
+            return view('surat.ket_ak01', compact('surat', 'user', 'prodi'));
         }
     }
 
@@ -210,6 +234,21 @@ class PermohonanController extends Controller
             $pdf = PDF::loadview('surat.ket_aktif', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
             return $pdf->download('surat_keterangan_aktif');
         }
+
+        if ($surat->code == "SRT-MAGANG") {
+            $pdf = PDF::loadview('surat.ket_magang', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
+            return $pdf->download('surat_keterangan_magang');
+        }
+
+        if ($surat->code == "KET-CUTI") {
+            $pdf = PDF::loadview('surat.ket_cuti', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
+            return $pdf->download('surat_keterangan_cuti');
+        }
+
+        if ($surat->code == "KET-AAK01") {
+            $pdf = PDF::loadview('surat.ket_ak01', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
+            return $pdf->download('surat_keterangan_ak01');
+        }
     }
 
     public function terima($id)
@@ -218,6 +257,11 @@ class PermohonanController extends Controller
         $surat = Surat::find($permohonan->surat_id);
 
         if (Auth::user()->role_id == 3) {
+
+            if ($surat->nama_surat == "KRS" || $surat->nama_surat == "Transkrip") {
+                $permohonan->catatan = "Surat telah disetujui, Silahkan ambil dibagian akademik.";
+            }
+
             $permohonan->status = Config('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK');
             $permohonan->save();
         }
@@ -227,6 +271,7 @@ class PermohonanController extends Controller
             $permohonan->save();
 
             $surat->ttd_kabag_akademik = Config('constants.TTD_KABAG_AKADEMIK');
+            $surat->tgl_acc_kabag = date('d M Y');
             $surat->save();
         }
 

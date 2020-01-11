@@ -61,6 +61,7 @@
                   </td>
                   <td>{{ $v->catatan }}</td>
                   <td>
+                    @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN'))
                       <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
                       <p class="btn-sm btn-warning" style="color: white;">
@@ -70,24 +71,30 @@
                       <p style="text-align: center;" class="btn-sm btn-danger">{{ $v->status }}</p>
                     @elseif($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK'))
                       <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
-                      <p class="btn-sm btn-warning" style="color: white;">
-                        {{ Config::get('constants.MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK') }}
-                      </p>
+                      @if($surat->nama_surat != "KRS" 
+                      && $surat->nama_surat != "Transkrip")
+                        <p class="btn-sm btn-warning" style="color: white;">
+                          {{ Config::get('constants.MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK') }}
+                        </p>
+                      @endif
                     @elseif($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
                       <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
                     @endif
                   </td>
                   <td>{{ $v->updated_at }}</td>
                   <td>
-                    @if(Auth::user()->role_id == 4 && $v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
+                    @php($surat = App\Surat::find($v->surat_id))
+                    @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
                       <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
                         @csrf
                         <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
                         <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
                         <button class="btn btn-sm btn-success">Download Surat</button>
                       </form>
-                    @elseif(Auth::user()->role_id == 3)
-                      <form action="{{ url('permohonan/surat') }}" method="GET" style="white-space: nowrap;">
+                    @elseif(Auth::user()->role_id != 4 
+                    && $surat->nama_surat != "KRS" 
+                    && $surat->nama_surat != "Transkrip")
+                      <form action="{{ url('permohonan/surat') }}" method="GET" style="white-space: nowrap;" target="_blank">
                         @csrf
                         <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
                         <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
@@ -96,13 +103,16 @@
                     @endif
                   </td>
                   @if(Auth::user()->role_id != 4)
+                    @php($surat = App\Surat::find($v->surat_id))
                     <td>
                       @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') && Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
-                          <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success">Terima</a>
+                          <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success" onclick="return confirm('Anda yakin?');">Terima</a>
                           <a href="#penolakan-{{ $v->surat_id }}" rel="modal:open" class="btn btn-sm btn-danger">Tolak</a>
                       @endif
-                      @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK') && Auth::user()->role_id == 2)
-                          <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success">Terima</a>
+                      @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK') 
+                      && Auth::user()->role_id == 2 && $surat->nama_surat != "KRS" 
+                      && $surat->nama_surat != "Transkrip")
+                          <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success" onclick="return confirm('Anda yakin?');">Terima</a>
                       @endif
                     </td>
                   @endif
@@ -175,29 +185,26 @@
                       <div id="prasyarat">
                         <label>Catatan Surat</label>
                         <input type="number" name="id" value="{{ $surat->id }}" hidden>
+                        <input type="number" name="permohonan_id" value="{{ $v->id }}" hidden>
                         <div class="form-group">
-                          @if($v->status != Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                          || $v->status != Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
-                            @if(Auth::user()->role_id != 4)
-                              <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10" disabled>{{ $surat->catatan_surat }}</textarea>
-                            @else
+                          @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                          || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                            @if(Auth::user()->role_id == 4)
                               <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10">{{ $surat->catatan_surat }}</textarea>
+                            @else
+                              <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10" disabled>{{ $surat->catatan_surat }}</textarea>
                             @endif
                           @else
-                            <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10">{{ $surat->catatan_surat }}</textarea>
+                            <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10" disabled>{{ $surat->catatan_surat }}</textarea>
                           @endif
                         </div>
                       </div>
                     </div>
                     @if(Auth::user()->role_id == 4)
-                      <button type="submit" class="btn btn-success mr-2"
-                      @if($v->status != Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                      || $v->status != Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
-                        'disabled'
-                      @else
-                        ''
+                      @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                      || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                        <button type="submit" class="btn btn-success mr-2">Update Catatan</button>
                       @endif
-                      >Update Catatan</button>
                     @endif
                   </form>
                 </div>
