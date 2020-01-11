@@ -34,20 +34,6 @@
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="mdi mdi-bell"></i>
-              <span class="count">4</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <a class="dropdown-item">
-                <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
-                </p>
-                <span class="badge badge-pill badge-warning float-right">View all</span>
-              </a>
-              <div class="dropdown-divider"></div>
-            </div>
-          </li>
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="profile-text">Halo {{ Auth::user()->name }}</span>
@@ -117,6 +103,16 @@
             <a class="nav-link" href="{{ route('permohonan.index') }}">
               <i class="menu-icon mdi mdi-clipboard-text"></i>
               <span class="menu-title">Permohonan</span>
+              @if(Auth::user()->role_id == 3 && App\Helper::countPetugasTask() > 0)
+                <span class="badge badge-pill badge-danger" style="margin-right: 20%">
+                    {{ App\Helper::countPetugasTask() }}
+                </span>
+              @endif
+              @if(Auth::user()->role_id == 2 && App\Helper::countKabagTask() > 0)
+                <span class="badge badge-pill badge-danger" style="margin-right: 20%">
+                    {{ App\Helper::countKabagTask() }}
+                </span>
+              @endif
             </a>
           </li>
           <!-- <li class="nav-item">
