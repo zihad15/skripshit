@@ -27,10 +27,10 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
         <a class="navbar-brand brand-logo" href="index.html">
-          <img src="{!! asset('assets/images/logo.svg') !!}" alt="logo" />
+          <img src="{!! asset('assets/images/logo-trilogi.png') !!}" alt="logo" />
         </a>
         <a class="navbar-brand brand-logo-mini" href="index.html">
-          <img src="{!! asset('assets/images/logo-mini.svg') !!}" alt="logo" />
+          <img src="{!! asset('assets/images/logo-trilogi.png') !!}" alt="logo" />
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -53,14 +53,8 @@
                   </div>
                 </div>
               </a>
-              <a class="dropdown-item mt-2">
+              <a href="{{ url('users/kelola-profil', Auth::user()->id) }}" class="dropdown-item mt-2">
                 Kelola Profil
-              </a>
-              <a class="dropdown-item">
-                Ganti Password
-              </a>
-              <a class="dropdown-item">
-                Lihat Status
               </a>
               <a href="{{ route('logout') }}" class="dropdown-item">
                 Keluar
@@ -90,8 +84,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success btn-block">Kelola Profil
-              </button>
+              <a href="{{ url('users/kelola-profil', Auth::user()->id) }}" class="btn btn-success btn-block">Kelola Profil</a>
             </div>
           </li>
           <li class="nav-item">

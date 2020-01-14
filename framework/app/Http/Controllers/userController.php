@@ -129,4 +129,37 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('alert', 'Data berhasil dihapus!');
     }
+
+    public function kelolaProfil($id)
+    {
+        if ($id != Auth::user()->id) {
+            return abort(401);
+        }
+
+        $users = User::find($id);
+
+        return view('users.kelola_profile', compact('users'));
+    }
+
+    public function kelolaProfilSubmit(Request $request)
+    {
+        $users = User::find($request->user_id);
+
+        $users->name = $request->name;
+        $users->tempat_lahir = $request->tempat_lahir;
+        $users->tanggal_lahir = $request->tanggal_lahir;
+        $users->alamat = $request->alamat;
+        $users->jenis_kelamin = $request->jenis_kelamin;
+        $users->agama = $request->agama;
+        $users->no_hp = $request->no_hp;
+        $users->email = $request->email;
+
+        if (!empty($request->password)) {
+            $users = bcrypt($users->password);
+        }
+
+        $users->save();
+
+        return redirect()->back()->with('alert', "Data berhasil diupdate!");
+    }
 }
