@@ -26,10 +26,10 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
+        <a class="navbar-brand brand-logo" href="{{ url('/') }}">
           <img src="{!! asset('assets/images/logo-trilogi.png') !!}" alt="logo" />
         </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
+        <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
           <img src="{!! asset('assets/images/logo-trilogi.png') !!}" alt="logo" />
         </a>
       </div>
@@ -93,11 +93,23 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          @if(Auth::user()->role_id == 1)
+          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
             <li class="nav-item">
               <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="menu-icon mdi mdi-account-box"></i>
-                <span class="menu-title">Users</span>
+                @if(Auth::user()->role_id == 3)
+                  <span class="menu-title">Mahasiswa</span>
+                @else
+                  <span class="menu-title">Users</span>
+                @endif
+              </a>
+            </li>
+          @endif
+          @if(Auth::user()->role_id == 3)
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('prodi.index') }}">
+                <i class="menu-icon mdi mdi-format-float-left"></i>
+                <span class="menu-title">Prodi</span>
               </a>
             </li>
           @endif

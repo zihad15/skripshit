@@ -41,3 +41,10 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
 	Route::get('kelola-profil/{id}', 'UserController@kelolaProfil');
 	Route::post('kelolaProfilSubmit', 'UserController@kelolaProfilSubmit');
 });
+
+Route::group(['prefix' => 'prodi', 'middleware' => 'auth', 'as' => 'prodi.'], function(){
+	Route::resource('/', 'ProdiController');
+	Route::get('edit/{id}', 'ProdiController@edit');
+	Route::post('update', 'ProdiController@update');
+	Route::post('destroy', 'ProdiController@destroy');
+});

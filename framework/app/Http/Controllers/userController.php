@@ -17,8 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::leftJoin('roles', 'roles.id', '=', 'users.role_id')
-                    ->select('users.*', 'roles.role_name')
+        $users = User::leftJoin('roles', 'roles.id', '=', 'users.role_id');
+
+        if (Auth::user()->role_id == 3) {
+            $users = $users->where('role_id', 4);
+        }
+         
+        $users = $users->select('users.*', 'roles.role_name')
                     ->get();
 
         return view('users.index', compact('users'));
