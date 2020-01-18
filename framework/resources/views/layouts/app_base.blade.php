@@ -131,6 +131,14 @@
               </a>
             </li>
           @endif
+          @if(Auth::user()->role_id ==2)
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url('report') }}">
+                <i class="menu-icon mdi mdi-file-document"></i>
+                <span class="menu-title">Report</span>
+              </a>
+            </li>
+          @endif
         </ul>
       </nav>
       <!-- partial -->

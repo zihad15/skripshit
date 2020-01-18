@@ -48,3 +48,9 @@ Route::group(['prefix' => 'prodi', 'middleware' => 'auth', 'as' => 'prodi.'], fu
 	Route::post('update', 'ProdiController@update');
 	Route::post('destroy', 'ProdiController@destroy');
 });
+
+Route::group(['prefix' => 'report', 'middleware' => 'auth', 'as' => 'report.'], function(){
+	Route::get('/', 'ReportController@index');
+	Route::get('fetchData', 'ReportController@fetchData');
+	Route::get('exportData', 'ReportController@exportData');
+});

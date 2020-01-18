@@ -22,6 +22,14 @@ return [
 	'MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK' 	=> "Menunggu persetujuan kepala akademik",
 	'PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK' 	=> "Permohonan disetujui kepala akademik",
 
+	//STATUS PERMOHONAN
+	'STATUS_PERMOHONAN' => [
+		"Permohonan berhasil diajukan",
+		"Permohonan ditolak petugas akademik",
+		"Permohonan disetujui petugas akademik",
+		"Permohonan disetujui kepala akademik",
+	],
+
 	// NAMA SURAT DAN CODE
 	'SURAT_CONS' => [
 		"KRS",

@@ -13,7 +13,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-2">
-              <h4 class="card-title">Permohonan Anda</h4>
+              <h4 class="card-title">Table Permohonan</h4>
             </div>
             <div class="col-md-7"></div>
             <div class="col-md-2">
