@@ -25,7 +25,7 @@ class ReportExport implements FromCollection, WithMapping, WithHeadings
     {
          $report = DB::table('permohonan')->leftJoin('users', 'users.id', '=', 'permohonan.user_id')
                         ->leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id')
-                        ->whereBetween('permohonan.created_at', array($this->sdate, $this->edate));;
+                        ->whereBetween('permohonan.created_at', array($this->sdate, $this->edate));
 
         if ($this->overall_filter != "") {
             $report = $report->where('users.name', 'LIKE', '%'.$this->overall_filter.'%')

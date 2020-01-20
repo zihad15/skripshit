@@ -61,12 +61,15 @@ class ReportController extends Controller
         if ($request->sdate == "default") {
         	$sdate = date('Y-m-d', strtotime("-30 days"));
         	$edate = date('Y-m-d');
+        } else {
+            $sdate = $request->sdate;
+            $edate = $request->edate;
         }
 
         $overall_filter = !empty($request->overall_filter)?$request->overall_filter:"";
         $filter_status = !empty($request->filter_status)?$request->filter_status:"";
-        $sdate = !empty($sdate) ? $sdate." 00:00:00" : "";
-        $edate = !empty($edate) ? $edate." 23:59:59" : "";
+        $sdate = $sdate." 00:00:00";
+        $edate = $edate." 23:59:59";
 
         return (new ReportExport($overall_filter, $filter_status, $sdate, $edate))->download('Report_Export.xlsx');
     }
