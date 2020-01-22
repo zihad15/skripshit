@@ -33,6 +33,7 @@
                 <tr>
                   <th>Tanggal Permohonan</th>
                   <th>Nama Mahasiswa</th>
+                  <th>Prodi</th>
                   <th>Nama Surat</th>
                   <th>Prasyarat</th>
                   <th>Catatan</th>
@@ -49,6 +50,10 @@
                 <tr>
                   <td>{{ $v->created_at }}</td>
                   <td>{{ $v->name }}</td>
+                  <td>
+                    @php($prodi = App\Prodi::find($v->prodi_id))
+                    {{ $prodi->nama_prodi }}
+                  </td>
                   <td>{{ $v->nama_surat }}</td>
                   <td>
                     @if($v->prasyarat == 0)

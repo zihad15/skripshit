@@ -33,6 +33,7 @@
                 <tr>
                   <th>Nama User</th>
                   <th>Role</th>
+                  <th>Prodi</th>
                   <th>NIM/NIP</th>
                   <th>E-mail</th>
                   <th>No HP</th>
@@ -45,6 +46,13 @@
               	<tr>
               		<td>{{ $v->name }}</td>
               		<td>{{ $v->role_name }}</td>
+                  <td>
+                    @if(isset($v->nama_prodi))
+                      {{ $v->nama_prodi }}
+                    @else
+                      -
+                    @endif
+                  </td>
               		<td>{{ $v->nim_nip }}</td>
               		<td>{{ $v->email }}</td>
               		<td>{{ $v->no_hp }}</td>

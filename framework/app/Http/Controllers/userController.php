@@ -17,13 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::leftJoin('roles', 'roles.id', '=', 'users.role_id');
+        $users = User::leftJoin('roles', 'roles.id', '=', 'users.role_id')
+                    ->leftJoin('prodi', 'prodi.id', '=', 'users.prodi_id');
 
         if (Auth::user()->role_id == 3) {
             $users = $users->where('role_id', 4);
         }
          
-        $users = $users->select('users.*', 'roles.role_name')
+        $users = $users->select('users.*', 'roles.role_name', 'prodi.nama_prodi')
                     ->get();
 
         return view('users.index', compact('users'));
@@ -49,6 +50,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "nim_nip" => "unique:users",
+
+        ]);
+
         $users = new User();
 
         $users->nim_nip = $request->nim_nip;

@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
           <label>Roles</label>
-          <select class="form-control" name="role_id" id="role_id" onchange="showDiv(this)">
+          <select class="form-control" name="role_id" id="role_id" onchange="showDiv(this)" required>
             <option value="">Pilih roles untuk user.</option>
             <option value="4">Mahasiswa</option>
             <option value="3">Petugas Akademik</option>

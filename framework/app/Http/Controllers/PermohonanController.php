@@ -34,7 +34,8 @@ class PermohonanController extends Controller
             $permohonan = $permohonan->where('user_id', Auth::user()->id);
         }
         
-        $permohonan = $permohonan->select('permohonan.*', 'users.name', 'surat.nama_surat')->get();
+        $permohonan = $permohonan->select('permohonan.*', 'users.name', 'surat.nama_surat', 'users.prodi_id')
+                        ->get();
 
         return view('permohonan.index', compact('permohonan'));
     }

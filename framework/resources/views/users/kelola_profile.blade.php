@@ -28,6 +28,13 @@
           <label>NIM/NIP</label>
           <input type="number" name="nim_nip" class="form-control" value="{{ $users->nim_nip }}" readonly>
         </div>
+        @if(Auth::user()->role_id == 4)
+          <div class="form-group">
+            <label>Prodi</label>
+            @php($prodi = App\Prodi::find($users->prodi_id))
+            <input type="text" name="prodi" class="form-control" value="{{ $prodi->nama_prodi }}" readonly>
+          </div>
+        @endif
         <div class="form-group">
           <label>Nama Pengguna</label>
           <input type="text" name="name" class="form-control" value="{{ $users->name }}">
