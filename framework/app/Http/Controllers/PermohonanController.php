@@ -9,6 +9,7 @@ use App\Surat;
 use App\User;
 use App\Prodi;
 use App\Ak02;
+use App\Prasyarat;
 
 use Auth;
 use DB;
@@ -66,7 +67,7 @@ class PermohonanController extends Controller
         $nama_dan_code = Config('constants.NAMA_SURAT_DAN_CODE.'.$request->cons);
         $suratindexing = Surat::where('code', $nama_dan_code[0])->orderBy('index_surat', 'DESC')->first();
         $aisurat = !empty($suratindexing) ? $suratindexing->index_surat + 1 : 1;
-        $ak02 = "";
+        $prasyarat = "";
         $destinationPath = storage_path('app/public/images');
         if(!is_dir($destinationPath)){
             mkdir($destinationPath, 0755, true);
@@ -91,7 +92,7 @@ class PermohonanController extends Controller
         ]);
 
         if ($nama_dan_code[0] == "KET-AAK02") {
-            $ak02 = new Ak02();
+            $prasyarat = new Prasyarat();
 
             $arrPhoto = [
                 $request->file('surat_keterangan_persetujuan_sidang'),
@@ -127,21 +128,21 @@ class PermohonanController extends Controller
                 $arrPhoto[$i]->move($destinationPath, $arrFullName[$i]);
             }
 
-            $ak02->surat_keterangan_persetujuan_sidang = $arrFullName[0];
-            $ak02->berita_acara_bimbingan              = $arrFullName[1];
-            $ak02->surat_tugas_bimbingan               = $arrFullName[2];
-            $ak02->ijazah                              = $arrFullName[3];
-            $ak02->transkrip_nilai                     = $arrFullName[4];
-            $ak02->krs                                 = $arrFullName[5];
-            $ak02->ak01                                = $arrFullName[6];
-            $ak02->penilaian_proposal                  = $arrFullName[7];
-            $ak02->data_diri                           = $arrFullName[8];
-            $ak02->pasfoto_3x4                         = $arrFullName[9];
-            $ak02->pasfoto_4x6                         = $arrFullName[10];
-            $ak02->foto_copy_ktp                       = $arrFullName[11];
+            $prasyarat->surat_keterangan_persetujuan_sidang = $arrFullName[0];
+            $prasyarat->berita_acara_bimbingan              = $arrFullName[1];
+            $prasyarat->surat_tugas_bimbingan               = $arrFullName[2];
+            $prasyarat->ijazah                              = $arrFullName[3];
+            $prasyarat->transkrip_nilai                     = $arrFullName[4];
+            $prasyarat->krs                                 = $arrFullName[5];
+            $prasyarat->ak01                                = $arrFullName[6];
+            $prasyarat->penilaian_proposal                  = $arrFullName[7];
+            $prasyarat->data_diri                           = $arrFullName[8];
+            $prasyarat->pasfoto_3x4                         = $arrFullName[9];
+            $prasyarat->pasfoto_4x6                         = $arrFullName[10];
+            $prasyarat->foto_copy_ktp                       = $arrFullName[11];
 
-            $ak02->created_by = Auth::user()->name;
-            $ak02->save();
+            $prasyarat->created_by = Auth::user()->name;
+            $prasyarat->save();
         }
 
         $surat = new Surat();
@@ -150,8 +151,8 @@ class PermohonanController extends Controller
         $surat->nama_surat = $nama_dan_code[1];
         $surat->nomor_surat = "No.".$aisurat."/TRILOGI/ADAK/".$nama_dan_code[0]."/2020";
 
-        if ($ak02 != "") {
-            $surat->ak02_id = $ak02->id;
+        if ($prasyarat != "") {
+            $surat->prasyarat_id = $prasyarat->id;
         }
 
         if (!empty($request->catatan_magang)) {
@@ -210,7 +211,6 @@ class PermohonanController extends Controller
         $request->validate([
             "bukti_tf"                            => "mimes:jpeg,png,jpg|max:500000",
             "cover_proposal"                      => "mimes:jpeg,png,jpg|max:500000",
-            "prasyarat_ak02"                      => "mimes:jpeg,png,jpg|max:500000",
             "surat_keterangan_persetujuan_sidang" => "mimes:jpeg,png,jpg|max:500000",
             "ijazah"                              => "mimes:jpeg,png,jpg|max:500000",
             "transkrip_nilai"                     => "mimes:jpeg,png,jpg|max:500000",
@@ -226,8 +226,8 @@ class PermohonanController extends Controller
 
         ]);
 
-        if (!empty($request->ak02_id)) {
-            $ak02 = Ak02::find($request->ak02_id);
+        if (!empty($request->prasyarat_id)) {
+            $prasyarat = Prasyarat::find($request->prasyarat_id);
 
             $arrPhoto = [
                 $request->file('surat_keterangan_persetujuan_sidang'),
@@ -266,55 +266,55 @@ class PermohonanController extends Controller
             }
 
             if ($arrFullName[0] != null) {
-                $ak02->surat_keterangan_persetujuan_sidang = $arrFullName[0];
+                $prasyarat->surat_keterangan_persetujuan_sidang = $arrFullName[0];
             }
 
             if ($arrFullName[1] != null) {
-                $ak02->berita_acara_bimbingan              = $arrFullName[1];
+                $prasyarat->berita_acara_bimbingan              = $arrFullName[1];
             } 
 
             if ($arrFullName[2] != null) {
-                $ak02->surat_tugas_bimbingan               = $arrFullName[2];
+                $prasyarat->surat_tugas_bimbingan               = $arrFullName[2];
             } 
 
             if ($arrFullName[3] != null) {
-                $ak02->ijazah                              = $arrFullName[3];
+                $prasyarat->ijazah                              = $arrFullName[3];
             } 
 
             if ($arrFullName[4] != null) {
-                $ak02->transkrip_nilai                     = $arrFullName[4];
+                $prasyarat->transkrip_nilai                     = $arrFullName[4];
             } 
 
             if ($arrFullName[5] != null) {
-                $ak02->krs                                 = $arrFullName[5];
+                $prasyarat->krs                                 = $arrFullName[5];
             } 
 
             if ($arrFullName[6] != null) {
-                $ak02->ak01                                = $arrFullName[6];
+                $prasyarat->ak01                                = $arrFullName[6];
             } 
 
             if ($arrFullName[7] != null) {
-                $ak02->penilaian_proposal                  = $arrFullName[7];
+                $prasyarat->penilaian_proposal                  = $arrFullName[7];
             } 
 
             if ($arrFullName[8] != null) {
-                $ak02->data_diri                           = $arrFullName[8];
+                $prasyarat->data_diri                           = $arrFullName[8];
             }
 
             if ($arrFullName[9] != null) {
-                $ak02->pasfoto_3x4                         = $arrFullName[9];
+                $prasyarat->pasfoto_3x4                         = $arrFullName[9];
             } 
 
             if ($arrFullName[10] != null) {
-                $ak02->pasfoto_4x6                         = $arrFullName[10];
+                $prasyarat->pasfoto_4x6                         = $arrFullName[10];
             } 
 
             if ($arrFullName[11] != null) {
-                $ak02->foto_copy_ktp                       = $arrFullName[11];
+                $prasyarat->foto_copy_ktp                       = $arrFullName[11];
             }
 
-            $ak02->updated_by = Auth::user()->name;
-            $ak02->save();
+            $prasyarat->updated_by = Auth::user()->name;
+            $prasyarat->save();
         } else {
             $surat = Surat::find($request->surat_id);
 
