@@ -56,12 +56,14 @@
                   </td>
                   <td>{{ $v->nama_surat }}</td>
                   <td>
-                    @if($v->prasyarat == 0)
-                      Permohonan Tidak Memiliki Prasyarat.
-                    @elseif($v->prasyarat == 1)
+                    @if($v->prasyarat == 1)
                       Permohonan Memiliki Prasyarat Silahkan Tinjau/Edit <a href="#prasyarat-{{ $v->surat_id }}" rel="modal:open">disini.</a>
+                    @elseif($v->prasyarat == 2)
+                       Permohonan Memiliki Catatan Surat Silahkan Tinjau/Edit <a href="#catatan-{{ $v->surat_id }}" rel="modal:open">disini.</a>
+                    @elseif($v->prasyarat == 3)
+                       Permohonan Memiliki Prasyarat Surat Silahkan Tinjau/Edit <a href="#prasyarat-{{ $v->surat_id }}" rel="modal:open">disini.</a>
                     @else
-                      Permohonan Memiliki Catatan Surat Silahkan Tinjau/Edit <a href="#catatan-{{ $v->surat_id }}" rel="modal:open">disini.</a>
+                      Permohonan Tidak Memiliki Prasyarat.
                     @endif
                   </td>
                   <td>{{ $v->catatan }}</td>
@@ -124,54 +126,259 @@
                 </tr>
                 <!-- MODAL PRASYARAT -->
                 <div id="prasyarat-{{ $v->surat_id }}" class="modal">
-                  <form method="POST" action="{{ url('permohonan/updatePratinjau') }}" enctype="multipart/form-data">
-                    @csrf
-                    @php($surat = App\Surat::find($v->surat_id))
-                    <div class="form-group">
-                      @if ($errors->any())
-                        <div class="alert alert-danger">
-                          <button data-dismiss="alert" class="close"></button>
-                            {!! implode('', $errors->all('<p>:message</p>')) !!}
+                  @php($surat = App\Surat::find($v->surat_id))
+                  @php($ak02 = App\Ak02::find($surat->ak02_id))
+                  @if($surat->code == "KET-AAK02")
+                    <form method="POST" action="{{ url('permohonan/updatePratinjau') }}" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        @if ($errors->any())
+                          <div class="alert alert-danger">
+                            <button data-dismiss="alert" class="close"></button>
+                              {!! implode('', $errors->all('<p>:message</p>')) !!}
+                          </div>
+                        @endif
+                        <div id="prasyarat" style="margin-top: 10%;">
+                          <h5>Prasyarat</h5>
+                          <hr>
+                          <input type="number" name="ak02_id" value="{{ $ak02->id }}" hidden>
+                          <input type="number" name="permohonan_id" value="{{ $v->id }}" hidden>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Surat Keterangan Persetujuan Sidang</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->surat_keterangan_persetujuan_sidang) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->surat_keterangan_persetujuan_sidang) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="surat_keterangan_persetujuan_sidang" id="surat_keterangan_persetujuan_sidang" accept="image/*" onchange="readURL(this);" class="form-control"/>
+                                    @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Berita Acara Bimbingan</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->berita_acara_bimbingan) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->berita_acara_bimbingan) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="berita_acara_bimbingan" id="berita_acara_bimbingan" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Surat Tugas Bimbingan</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->surat_tugas_bimbingan) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->surat_tugas_bimbingan) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="surat_tugas_bimbingan" id="surat_tugas_bimbingan" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">KRS</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->krs) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->krs) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="krs" id="krs" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Ijazah SMU/D3</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->ijazah) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->ijazah) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="ijazah" id="ijazah" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">AK01</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->ak01) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->ak01) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="ak01" id="ak01" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Transkrip Nilai</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->transkrip_nilai) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->transkrip_nilai) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="transkrip_nilai" id="transkrip_nilai" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Penilaian Proposal</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->penilaian_proposal) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->penilaian_proposal) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="penilaian_proposal" id="penilaian_proposal" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Data Diri</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->data_diri) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->data_diri) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="data_diri" id="data_diri" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Pas Foto 3 x 4</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->pasfoto_3x4) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->pasfoto_3x4) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="pasfoto_3x4" id="pasfoto_3x4" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Pas Foto 4 x 6</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->pasfoto_4x6) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->pasfoto_4x6) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="pasfoto_4x6" id="pasfoto_4x6" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Foto Copy KTP</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$ak02->foto_copy_ktp) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$ak02->foto_copy_ktp) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                                @if(Auth::user()->role_id == 4)
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                    <input type='file' name="foto_copy_ktp" id="foto_copy_ktp" accept="image/*" onchange="readURL(this);" class="form-control" />
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                      @if(Auth::user()->role_id == 4)
+                        @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                          <button type="submit" class="btn btn-success mr-2">Update Prasyarat</button>
+                        @endif
                       @endif
-                      <div id="prasyarat">
-                        <h5>Prasyarat</h5>
-                        <hr>
-                        <input type="number" name="surat_id" value="{{ $surat->id }}" hidden>
-                        <input type="number" name="permohonan_id" value="{{ $v->id }}" hidden>
-                        <div class="form-group">
-                          <label for="">Bukti TF</label><br>
-                          <img src="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
-                          <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" class="btn btn-sm btn-primary"> perbesar</a>
-                          @if(Auth::user()->role_id == 4)
-                            @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                            || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
-                              <input type='file' name="bukti_tf" id="bukti_tf" onchange="readURL(this);" class="form-control"/>
-                            @endif
-                          @endif
-                        </div>
-                        @if(isset($surat->cover_proposal))
+                    </form>
+                  @else
+                    <form method="POST" action="{{ url('permohonan/updatePratinjau') }}" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        @if ($errors->any())
+                          <div class="alert alert-danger">
+                            <button data-dismiss="alert" class="close"></button>
+                              {!! implode('', $errors->all('<p>:message</p>')) !!}
+                          </div>
+                        @endif
+                        <div id="prasyarat">
+                          <h5>Prasyarat</h5>
+                          <hr>
+                          <input type="number" name="surat_id" value="{{ $surat->id }}" hidden>
+                          <input type="number" name="permohonan_id" value="{{ $v->id }}" hidden>
                           <div class="form-group">
-                            <label for="">Cover Proposal</label><br>
-                            <img src="{{ url('framework/storage/app/public/images/'.$surat->cover_proposal) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
-                            <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->cover_proposal) }}" class="btn btn-sm btn-primary"> perbesar</a>
+                            <label for="">Bukti TF</label><br>
+                            <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}">
+                              <img src="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                            </a>
                             @if(Auth::user()->role_id == 4)
                               @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
                               || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
-                                <input type='file' name="cover_proposal" id="cover_proposal" onchange="readURL(this);" class="form-control"/>
+                                <input type='file' name="bukti_tf" id="bukti_tf" onchange="readURL(this);" class="form-control"/>
                               @endif
                             @endif
                           </div>
-                        @endif
+                          @if(isset($surat->cover_proposal))
+                            <div class="form-group">
+                              <label for="">Cover Proposal</label><br>
+                              <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->cover_proposal) }}">
+                                <img src="{{ url('framework/storage/app/public/images/'.$surat->cover_proposal) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                              </a>
+                              @if(Auth::user()->role_id == 4)
+                                @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  <input type='file' name="cover_proposal" id="cover_proposal" onchange="readURL(this);" class="form-control"/>
+                                @endif
+                              @endif
+                            </div>
+                          @endif
+                        </div>
                       </div>
-                    </div>
-                    @if(Auth::user()->role_id == 4)
-                      @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                      || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
-                        <button type="submit" class="btn btn-success mr-2">Update Prasyarat</button>
+                      @if(Auth::user()->role_id == 4)
+                        @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                          <button type="submit" class="btn btn-success mr-2">Update Prasyarat</button>
+                        @endif
                       @endif
-                    @endif
-                  </form>
+                    </form>
+                  @endif
                 </div>
                 <!-- END MODAL PRASYARAT -->
 
@@ -261,7 +468,7 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(input).parent().children("img").show()
+                $(input).parent().children("a").children("img").show()
                     .attr('src', e.target.result)
                     .width(100)
                     .height(100);
