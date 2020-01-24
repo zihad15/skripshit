@@ -66,6 +66,7 @@ class PermohonanController extends Controller
     {
         $nama_dan_code = Config('constants.NAMA_SURAT_DAN_CODE.'.$request->cons);
         $suratindexing = Surat::where('code', $nama_dan_code[0])->orderBy('index_surat', 'DESC')->first();
+        $prodi = Prodi::find(Auth::user()->prodi_id);
         $aisurat = !empty($suratindexing) ? $suratindexing->index_surat + 1 : 1;
         $prasyarat = "";
         $destinationPath = storage_path('app/public/images');
@@ -110,36 +111,73 @@ class PermohonanController extends Controller
             ];
 
             $arrFullName = [
-                time().'_surat_keterangan_persetujuan_sidang.'.$arrPhoto[0]->getClientOriginalExtension(),
-                time().'_berita_acara_bimbingan.'.$arrPhoto[1]->getClientOriginalExtension(),
-                time().'_surat_tugas_bimbingan.'.$arrPhoto[2]->getClientOriginalExtension(),
-                time().'_ijazah.'.$arrPhoto[3]->getClientOriginalExtension(),
-                time().'_transkrip_nilai.'.$arrPhoto[4]->getClientOriginalExtension(),
-                time().'_krs.'.$arrPhoto[5]->getClientOriginalExtension(),
-                time().'_ak01.'.$arrPhoto[6]->getClientOriginalExtension(),
-                time().'_penilaian_proposal.'.$arrPhoto[7]->getClientOriginalExtension(),
-                time().'_data_diri.'.$arrPhoto[8]->getClientOriginalExtension(),
-                time().'_pasfoto_3x4.'.$arrPhoto[9]->getClientOriginalExtension(),
-                time().'_pasfoto_4x6.'.$arrPhoto[10]->getClientOriginalExtension(),
-                time().'_foto_copy_ktp.'.$arrPhoto[11]->getClientOriginalExtension(),
+                ($arrPhoto[0] != null) ? time().'_surat_keterangan_persetujuan_sidang.'.$arrPhoto[0]->getClientOriginalExtension() : null,
+                ($arrPhoto[1] != null) ? time().'_berita_acara_bimbingan.'.$arrPhoto[1]->getClientOriginalExtension() : null,
+                ($arrPhoto[2] != null) ? time().'_surat_tugas_bimbingan.'.$arrPhoto[2]->getClientOriginalExtension() : null,
+                ($arrPhoto[3] != null) ? time().'_ijazah.'.$arrPhoto[3]->getClientOriginalExtension() : null,
+                ($arrPhoto[4] != null) ? time().'_transkrip_nilai.'.$arrPhoto[4]->getClientOriginalExtension() : null,
+                ($arrPhoto[5] != null) ? time().'_krs.'.$arrPhoto[5]->getClientOriginalExtension() : null,
+                ($arrPhoto[6] != null) ? time().'_ak01.'.$arrPhoto[6]->getClientOriginalExtension() : null,
+                ($arrPhoto[7] != null) ? time().'_penilaian_proposal.'.$arrPhoto[7]->getClientOriginalExtension() : null,
+                ($arrPhoto[8] != null) ? time().'_data_diri.'.$arrPhoto[8]->getClientOriginalExtension() : null,
+                ($arrPhoto[9] != null) ? time().'_pasfoto_3x4.'.$arrPhoto[9]->getClientOriginalExtension() : null,
+                ($arrPhoto[10] != null) ? time().'_pasfoto_4x6.'.$arrPhoto[10]->getClientOriginalExtension() : null,
+                ($arrPhoto[11] != null) ? time().'_foto_copy_ktp.'.$arrPhoto[11]->getClientOriginalExtension() : null,
             ];
 
             for ($i=0; $i < count($arrPhoto); $i++) { 
-                $arrPhoto[$i]->move($destinationPath, $arrFullName[$i]);
+                if ($arrPhoto[$i] != null) {
+                    $arrPhoto[$i]->move($destinationPath, $arrFullName[$i]);
+                }              
             }
 
-            $prasyarat->surat_keterangan_persetujuan_sidang = $arrFullName[0];
-            $prasyarat->berita_acara_bimbingan              = $arrFullName[1];
-            $prasyarat->surat_tugas_bimbingan               = $arrFullName[2];
-            $prasyarat->ijazah                              = $arrFullName[3];
-            $prasyarat->transkrip_nilai                     = $arrFullName[4];
-            $prasyarat->krs                                 = $arrFullName[5];
-            $prasyarat->ak01                                = $arrFullName[6];
-            $prasyarat->penilaian_proposal                  = $arrFullName[7];
-            $prasyarat->data_diri                           = $arrFullName[8];
-            $prasyarat->pasfoto_3x4                         = $arrFullName[9];
-            $prasyarat->pasfoto_4x6                         = $arrFullName[10];
-            $prasyarat->foto_copy_ktp                       = $arrFullName[11];
+            if ($arrFullName[0] != null) {
+                $prasyarat->surat_keterangan_persetujuan_sidang = $arrFullName[0];
+            }
+
+            if ($arrFullName[1] != null) {
+                $prasyarat->berita_acara_bimbingan              = $arrFullName[1];
+            } 
+
+            if ($arrFullName[2] != null) {
+                $prasyarat->surat_tugas_bimbingan               = $arrFullName[2];
+            } 
+
+            if ($arrFullName[3] != null) {
+                $prasyarat->ijazah                              = $arrFullName[3];
+            } 
+
+            if ($arrFullName[4] != null) {
+                $prasyarat->transkrip_nilai                     = $arrFullName[4];
+            } 
+
+            if ($arrFullName[5] != null) {
+                $prasyarat->krs                                 = $arrFullName[5];
+            } 
+
+            if ($arrFullName[6] != null) {
+                $prasyarat->ak01                                = $arrFullName[6];
+            } 
+
+            if ($arrFullName[7] != null) {
+                $prasyarat->penilaian_proposal                  = $arrFullName[7];
+            } 
+
+            if ($arrFullName[8] != null) {
+                $prasyarat->data_diri                           = $arrFullName[8];
+            }
+
+            if ($arrFullName[9] != null) {
+                $prasyarat->pasfoto_3x4                         = $arrFullName[9];
+            } 
+
+            if ($arrFullName[10] != null) {
+                $prasyarat->pasfoto_4x6                         = $arrFullName[10];
+            } 
+
+            if ($arrFullName[11] != null) {
+                $prasyarat->foto_copy_ktp                       = $arrFullName[11];
+            }
 
             $prasyarat->created_by = Auth::user()->name;
             $prasyarat->save();
@@ -149,7 +187,12 @@ class PermohonanController extends Controller
         $surat->index_surat = $aisurat;
         $surat->code = $nama_dan_code[0];
         $surat->nama_surat = $nama_dan_code[1];
-        $surat->nomor_surat = "No.".$aisurat."/TRILOGI/ADAK/".$nama_dan_code[0]."/2020";
+
+        if ($nama_dan_code[0] == "KET-AAK02") {
+            $surat->nomor_surat = "No.".$aisurat."/MHS-".$prodi->kode_prodi."/".$nama_dan_code[0]."/2020";
+        } else {
+            $surat->nomor_surat = "No.".$aisurat."/TRILOGI/ADAK/".$nama_dan_code[0]."/2020";
+        }
 
         if ($prasyarat != "") {
             $surat->prasyarat_id = $prasyarat->id;
@@ -415,6 +458,10 @@ class PermohonanController extends Controller
         if ($surat->code == "KET-AAK01") {
             return view('surat.ket_ak01', compact('surat', 'user', 'prodi'));
         }
+
+        if ($surat->code == "KET-AAK02") {
+            return view('surat.ket_ak02', compact('surat', 'user', 'prodi'));
+        }
     }
 
     public function downloadPDF(Request $request)
@@ -441,6 +488,11 @@ class PermohonanController extends Controller
         if ($surat->code == "KET-AAK01") {
             $pdf = PDF::loadview('surat.ket_ak01', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
             return $pdf->download('surat_keterangan_ak01');
+        }
+
+        if ($surat->code == "KET-AAK02") {
+            $pdf = PDF::loadview('surat.ket_ak02', ['surat' => $surat, 'user' => $user, 'prodi' => $prodi]);
+            return $pdf->download('surat_keterangan_ak02');
         }
     }
 
@@ -482,48 +534,13 @@ class PermohonanController extends Controller
         return redirect()->route('permohonan.index')->with('alert', 'Permohonan berhasil ditolak!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function ak02Check()
     {
-        //
-    }
+        $permohonan = Permohonan::where('user_id', Auth::user()->id)
+                        ->where('status', Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN'))
+                        ->where('prasyarat', 3)
+                        ->count();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $permohonan;
     }
 }

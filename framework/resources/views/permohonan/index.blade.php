@@ -92,12 +92,14 @@
                   <td>
                     @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
-                      <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
-                        @csrf
-                        <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
-                        <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
-                        <button class="btn btn-sm btn-success">Download Surat</button>
-                      </form>
+                      @if(Auth::user()->role_id != 4 && $surat->code == "KET-AAK02")
+                        <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
+                          @csrf
+                          <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
+                          <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
+                          <button class="btn btn-sm btn-success">Download Surat</button>
+                        </form>
+                      @endif
                     @elseif(Auth::user()->role_id != 4 
                     && $surat->nama_surat != "KRS" 
                     && $surat->nama_surat != "Transkrip")
@@ -445,6 +447,15 @@
                   </form>
                 </div>
                 <!-- END MODAL PENOLAKAN -->
+
+
+                <!-- MODAL INFORMASI -->
+                <div class="modal" id="modal_notif_ak02">
+                  <label>INFORMASI!</label>
+                  <p style="color: red;">Anda memiliki pengajuan permohonan Surat Keterangan Ak02, Silahkan kumpulkan hardcopy Proposal ke bagian akademik sejumlah dosen penguji untuk proses lebih lanjut.</p>
+                </div>
+                <!-- END MODAL INFORMASI -->
+                <a href="#modal_notif_ak02" rel="modal:open" id="ak02CheckButton" style="display: none;"></a>
                 @endforeach
               </tbody>
             </table>
@@ -478,4 +489,22 @@
         }
     }
   </script>
+  <script type="text/javascript">
+    var baseUrl = "{{ url('/') }}";
+    $.ajax({
+      type: "GET",
+      url: baseUrl+"/permohonan/ak02Check/",
+      success: function(response){
+        console.log(response);
+        if (response > 0) {
+          $('#ak02CheckButton')[0].click();
+        }
+      }
+    });   
+  </script>
+ <!-- <script type="text/javascript">
+$(function(){
+  
+});
+</script> -->
 @endsection

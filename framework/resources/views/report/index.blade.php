@@ -69,6 +69,7 @@
                 <tr>
                   <th>Tanggal Permohonan</th>
                   <th>Nama Mahasiswa</th>
+                  <th>Prodi</th>
                   <th>Nama Surat</th>
                   <th>Prasyarat / Catatan Surat</th>
                   <th>Catatan</th>
@@ -163,6 +164,7 @@
             columns: [
                 { data: 'created_at', name: 'created_at'},
                 { data: 'name', name: 'name'},
+                { data: 'nama_prodi', name: 'nama_prodi'},
                 { data: 'nama_surat', name: 'nama_surat'},
                 { data: 'prasyarat', name: 'prasyarat'},
                 { data: 'catatan', name: 'catatan'},

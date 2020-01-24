@@ -24,12 +24,14 @@ class ReportController extends Controller
         $edate = !empty($_GET['edate']) ? $_GET['edate']." 23:59:59" : "";
 
         $report = DB::table('permohonan')->leftJoin('users', 'users.id', '=', 'permohonan.user_id')
-                        ->leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id');
+                        ->leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id')
+                        ->leftJoin('prodi', 'prodi.id', '=', 'users.prodi_id');
 
         if ($overall_filter != "") {
         	$report = $report->where(function($q) use ($overall_filter){
                                 $q->where('users.name', 'LIKE', '%'.$overall_filter.'%')
-                                  ->orwhere('surat.nama_surat', 'LIKE', '%'.$overall_filter.'%');
+                                  ->orwhere('surat.nama_surat', 'LIKE', '%'.$overall_filter.'%')
+                                  ->orwhere('prodi.nama_prodi', 'LIKE', '%'.$overall_filter.'%');
                                 });
         }
 
@@ -41,7 +43,7 @@ class ReportController extends Controller
         	$report = $report->where('permohonan.status', $filter_status);
         }
 
-        $report = $report->select('permohonan.*', 'users.name', 'surat.nama_surat');
+        $report = $report->select('permohonan.*', 'users.name', 'surat.nama_surat', 'prodi.nama_prodi');
 
         return Datatables::of($report)
         		->addColumn('prasyarat', function ($report) {

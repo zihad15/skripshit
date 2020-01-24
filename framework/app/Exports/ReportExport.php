@@ -25,18 +25,20 @@ class ReportExport implements FromCollection, WithMapping, WithHeadings
     {
          $report = DB::table('permohonan')->leftJoin('users', 'users.id', '=', 'permohonan.user_id')
                         ->leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id')
+                        ->leftJoin('prodi', 'prodi.id', '=', 'users.prodi_id')
                         ->whereBetween('permohonan.created_at', array($this->sdate, $this->edate));
 
         if ($this->overall_filter != "") {
             $report = $report->where('users.name', 'LIKE', '%'.$this->overall_filter.'%')
-                        ->orwhere('surat.nama_surat', 'LIKE', '%'.$this->overall_filter.'%');
+                        ->orwhere('surat.nama_surat', 'LIKE', '%'.$this->overall_filter.'%')
+                        ->orwhere('prodi.nama_prodi', 'LIKE', '%'.$this->overall_filter.'%');
         }
 
         if ($this->filter_status != "") {
             $report = $report->where('permohonan.status', $this->filter_status);
         }
 
-        $report = $report->select('permohonan.*', 'users.name', 'surat.nama_surat')->get();
+        $report = $report->select('permohonan.*', 'users.name', 'surat.nama_surat', 'prodi.nama_prodi')->get();
 
         return $report;
     }
@@ -52,6 +54,7 @@ class ReportExport implements FromCollection, WithMapping, WithHeadings
         return [
             $report->created_at,
             $report->name,
+            $report->nama_prodi,
             $report->nama_surat,
             $prasyarat,
             $report->catatan,
@@ -65,6 +68,7 @@ class ReportExport implements FromCollection, WithMapping, WithHeadings
         return [
             'Tanggal Permohonan',
             'Nama Mahasiswa',
+            'Prodi',
             'Nama Surat',
             'Prasyarat / Catatan Surat',
             'Catatan',

@@ -30,6 +30,8 @@ Route::group(['prefix' => 'permohonan', 'middleware' => 'auth', 'as' => 'permoho
 	Route::get('downloadPDF', 'PermohonanController@downloadPDF');
 	Route::get('terima/{id}', 'PermohonanController@terima');
 	Route::post('tolak', 'PermohonanController@tolak');
+
+	Route::get('ak02Check', 'PermohonanController@ak02Check');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], function(){

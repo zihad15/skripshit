@@ -179,8 +179,22 @@
 
         document.getElementById('divcuti').style.display   = 'none';
         document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_cuti').required   = false;
+        document.getElementById('catatan_magang').required = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       } else if(e.value == "KET_AK02") {
         document.getElementById('prasyarat_ak02').style.display                 = 'block';
         document.getElementById('surat_keterangan_persetujuan_sidang').required = true;
@@ -197,41 +211,106 @@
         document.getElementById('foto_copy_ktp').required                       = true;
 
         document.getElementById('prasyarat').style.display = 'none';
+        document.getElementById('bukti_tf').required       = false;
+        document.getElementById('cover_proposal').required = false;
 
         document.getElementById('divcuti').style.display   = 'none';
         document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_cuti').required   = false;
+        document.getElementById('catatan_magang').required = false;
       } else if(e.value == "KRS" || e.value == "TRANSKRIP") {
         document.getElementById('prasyarat').style.display        = 'block';
         document.getElementById('bukti_tf').required              = true;
         document.getElementById('divcoverproposal').style.display = 'none';
+        document.getElementById('cover_proposal').required        = false;
 
         document.getElementById('divcuti').style.display   = 'none';
         document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_cuti').required   = false;
+        document.getElementById('catatan_magang').required = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       } else if(e.value == "KET_MAGANG") {
         document.getElementById('divmagang').style.display  = 'block';
-        document.getElementById('divcuti').style.display    = 'none';
         document.getElementById('catatan_magang').required  = true;
+        document.getElementById('divcuti').style.display    = 'none';
+        document.getElementById('catatan_cuti').required    = false;
 
         document.getElementById('prasyarat').style.display = 'none';
+        document.getElementById('bukti_tf').required       = false;
+        document.getElementById('cover_proposal').required = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       } else if(e.value == "KET_CUTI") {
-        document.getElementById('divcuti').style.display    = 'block';
-        document.getElementById('divmagang').style.display  = 'none';
+        document.getElementById('divcuti').style.display   = 'block';
         document.getElementById('catatan_cuti').required   = true;
+        document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_magang').required = false;
 
         document.getElementById('prasyarat').style.display = 'none';
+        document.getElementById('bukti_tf').required       = false;
+        document.getElementById('cover_proposal').required = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       } else {
         document.getElementById('divcuti').style.display   = 'none';
         document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_cuti').required   = false;
+        document.getElementById('catatan_magang').required = false;
 
         document.getElementById('prasyarat').style.display = 'none';
+        document.getElementById('bukti_tf').required       = false;
+        document.getElementById('cover_proposal').required = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       }
     }
   </script>
