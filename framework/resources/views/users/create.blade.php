@@ -35,14 +35,25 @@
             <option value="2">Kabag Akademik</option>
           </select>
         </div>
-        <div class="form-group" id="prodi" style="display: none;">
-          <label>Prodi</label>
-          <select class="form-control" name="prodi_id" id="prodi_id">
-            <option value="">Pilih prodi untuk mahasiswa.</option>
-            @foreach($prodi as $v)
-              <option value="{{ $v->id }}">{{ $v->nama_prodi }}</option>
-            @endforeach
-          </select>
+        <div style="display: {{ (Auth::user()->role_id == 4) ? 'block' : 'none' }}" id="mahasiswa_requirements">
+          <div class="form-group">
+            <label>Prodi</label>
+            <select class="form-control" name="prodi_id" id="prodi_id">
+              <option value="">Pilih prodi untuk mahasiswa.</option>
+              @foreach($prodi as $v)
+                <option value="{{ $v->id }}">{{ $v->nama_prodi }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Jenjang Pendidikan</label>
+            <select class="form-control" name="jenjang_pendidikan" id="jenjang_pendidikan">
+              <option value="">Pilih jenjang pendidikan untuk mahasiswa.</option>
+              <option value="strata satu">Strata Satu</option>
+              <option value="strata dua">Strata Dua</option>
+              <option value="strata tiga">Strata Tiga</option>
+            </select>
+          </div>
         </div>
         <button type="submit" class="btn btn-success mr-2">Submit</button>
       </form>
@@ -54,11 +65,13 @@
     function showDiv(e)
     {
       if (e.value == 4) {
-        document.getElementById('prodi').style.display = 'block';
-        document.getElementById('prodi_id').required = true;
+        document.getElementById('mahasiswa_requirements').style.display = 'block';
+        document.getElementById('prodi_id').required                    = true;
+        document.getElementById('jenjang_pendidikan').required          = true;
       } else {
-        document.getElementById('prodi').style.display = 'none';
-        document.getElementById('prodi_id').required = false;
+        document.getElementById('mahasiswa_requirements').style.display = 'none';
+        document.getElementById('prodi_id').required                    = false;
+        document.getElementById('jenjang_pendidikan').required          = false;
       }
     }
   </script>

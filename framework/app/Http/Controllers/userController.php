@@ -61,6 +61,7 @@ class UserController extends Controller
         $users->name = $request->name;
         $users->password = bcrypt($request->nim_nip);
         $users->role_id = $request->role_id;
+        $users->jenjang_pendidikan = $request->jenjang_pendidikan;
         $users->status = 1;
         $users->created_by = Auth::user()->name;
 
@@ -112,6 +113,7 @@ class UserController extends Controller
         $users->nim_nip = $request->nim_nip;
         $users->name = $request->name;
         $users->role_id = $request->role_id;
+        $users->jenjang_pendidikan = $request->jenjang_pendidikan;
         $users->created_by = Auth::user()->name;
 
         if (!empty($request->prodi_id)) {
