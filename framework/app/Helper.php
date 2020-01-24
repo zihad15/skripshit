@@ -26,4 +26,22 @@ class Helper extends Model
 
     	return $permohonan;
     }
+
+    public static function generateDateRange($start_date, $end_date)
+    {
+        $period = new \DatePeriod(
+             new \DateTime(date("Y-m-d", strtotime($start_date))),
+             new \DateInterval('P1D'),
+             new \DateTime(date("Y-m-d", strtotime($end_date)))
+        );
+
+        $dates = array();
+        foreach($period as $date){
+            array_push($dates, $date->format("Y-m-d"));
+        }
+
+        //push today date
+        array_push($dates, date("Y-m-d", strtotime($end_date)));
+        return $dates;
+    }
 }

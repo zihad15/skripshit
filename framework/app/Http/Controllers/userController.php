@@ -168,7 +168,7 @@ class UserController extends Controller
         $users->email = $request->email;
 
         if (!empty($request->password)) {
-            $users = bcrypt($users->password);
+            $users->password = bcrypt($request->password);
         }
 
         $users->save();

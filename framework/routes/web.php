@@ -20,6 +20,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::post('login', 'Auth\LoginController@login');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('getDataPermohonan', 'HomeController@getDataPermohonan');
 
 Route::group(['prefix' => 'permohonan', 'middleware' => 'auth', 'as' => 'permohonan.'], function(){
 	Route::resource('/', 'PermohonanController');
