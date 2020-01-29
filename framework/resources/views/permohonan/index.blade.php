@@ -5,6 +5,7 @@
   <!-- jQuery Modal -->
   <script type="text/javascript" src="{!! asset('assets/custom/modal.min.js') !!}"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endsection
 @section('content')
   <div class="row">
@@ -15,7 +16,11 @@
             <div class="col-md-2">
               <h4 class="card-title">Table Permohonan</h4>
             </div>
-            <div class="col-md-7"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+              <input type="text" name="dates" id="dates" class="form-control">
+            </div>
+            <div class="col-md-1"></div>
             <div class="col-md-2">
               @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 1)
                 <a href="{{ route('permohonan.create') }}" class="btn btn-md btn-success card-title">+ Tambah Permohonan</a>
@@ -93,7 +98,7 @@
                     @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
                       @if(Auth::user()->role_id == 4 && $surat->code == "KET-AAK02")
-                      
+
                       @else
                         <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
                           @csrf
@@ -468,12 +473,84 @@
   </div>
 @endsection
 @section('js')
-  <script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script type="text/javascript">
+    var table;
     $(document).ready( function () {
-      $('#datatables').DataTable({
+      table = $('#datatables').DataTable({
          aaSorting: [[0, 'desc']],
       });
     }); 
+  </script>
+  <script type="text/javascript">
+    var d = new Date();
+    var months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
+    var monthsnumber = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ];
+
+    var today = d.getDate()+"/"+months[d.getMonth()]+"/"+d.getFullYear();
+
+    var d7 = new Date(Date.now()-30*24*60*60*1000);
+    var yesterday = d7.getDate()+"/"+months[d7.getMonth()]+"/"+d7.getFullYear();
+
+    var sdate = d7.getFullYear()+"-"+monthsnumber[d7.getMonth()]+"-"+d7.getDate();
+    var edate = d.getFullYear()+"-"+monthsnumber[d.getMonth()]+"-"+d.getDate();
+
+    var arrDate = [];
+    $('input[name="dates"]').daterangepicker({
+      opens: 'left',
+      startDate: yesterday,
+      endDate: today,
+      locale: {
+        format: 'D/MMMM/YYYY'
+      }, 
+    }, function(start, end, label) {
+      sdate = start.format('YYYY-MM-DD');
+      edate = end.format('YYYY-MM-DD');
+
+      $.fn.dataTableExt.afnFiltering.push(
+        function( settings, data, dataIndex ) {
+            var d = new Date(data[0]);
+            var date = d.getFullYear()+"-"+monthsnumber[d.getMonth()]+"-"+d.getDate();
+            if (sdate <= date   && date <= edate )
+            {
+                return true;
+            }
+            return false;
+        }
+      );
+      table.draw();
+    });
+  </script>
+  <script>
+    
   </script>
   <script type="text/javascript">
     function readURL(input) {
@@ -497,7 +574,6 @@
       type: "GET",
       url: baseUrl+"/permohonan/ak02Check/",
       success: function(response){
-        console.log(response);
         if (response > 0) {
           $('#ak02CheckButton')[0].click();
         }
