@@ -92,7 +92,9 @@
                   <td>
                     @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
-                      @if(Auth::user()->role_id != 4 && $surat->code == "KET-AAK02")
+                      @if(Auth::user()->role_id == 4 && $surat->code == "KET-AAK02")
+                      
+                      @else
                         <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
                           @csrf
                           <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
