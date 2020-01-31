@@ -17,7 +17,10 @@ Route::get('/', function () {
 */
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
-Route::post('login', 'Auth\LoginController@login');
+Route::post('/login', [
+    'uses'          => 'Auth\LoginController@login',
+    'middleware'    => 'checkstatus',
+]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('getDataPermohonan', 'HomeController@getDataPermohonan');

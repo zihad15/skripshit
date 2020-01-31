@@ -60,6 +60,14 @@
             </select>
           </div>
         </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" name="status" id="status">
+            <option value="">Pilih Status.</option>
+            <option value="1" {{ ($users->status == 1) ? 'selected' : '' }}>Aktif</option>
+            <option value="2" {{ ($users->status == 2) ? 'selected' : '' }}>Tidak Aktif</option>
+          </select>
+        </div>
         <button type="submit" class="btn btn-success mr-2">Submit</button>
       </form>
   </div>

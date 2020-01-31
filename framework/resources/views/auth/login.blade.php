@@ -29,6 +29,11 @@
             <div class="auto-form-wrapper">
               <form method="POST" action="{{ route('login') }}">
                 @csrf
+                @if (session('alert'))
+                    <div class="alert alert-danger">
+                        {{ session('alert') }}
+                    </div>
+                @endif
                 <div class="form-group">
                   <label class="label">Username</label>
                   <div class="input-group">

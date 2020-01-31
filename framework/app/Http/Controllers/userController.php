@@ -114,6 +114,7 @@ class UserController extends Controller
         $users->name = $request->name;
         $users->role_id = $request->role_id;
         $users->jenjang_pendidikan = $request->jenjang_pendidikan;
+        $users->status = $request->status;
         $users->created_by = Auth::user()->name;
 
         if (!empty($request->prodi_id)) {
