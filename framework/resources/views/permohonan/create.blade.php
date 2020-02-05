@@ -56,7 +56,7 @@
             <div class="form-group">
               <label for="">Bukti TF</label><br>
               <img src="" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;display: none;">
-              <input type='file' name="bukti_tf" id="bukti_tf" accept="image/*" onchange="readURL(this);" class="form-control" />
+              <input type='file' name="bukti_tf_cuti" id="bukti_tf_cuti" accept="image/*" onchange="readURL(this);" class="form-control" />
             </div>
           </div>
           <div id="divmagang" style="display: none;">
@@ -186,6 +186,7 @@
         document.getElementById('divmagang').style.display = 'none';
         document.getElementById('catatan_cuti').required   = false;
         document.getElementById('catatan_magang').required = false;
+        document.getElementById('bukti_tf_cuti').required  = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
         document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
@@ -223,6 +224,7 @@
         document.getElementById('divmagang').style.display = 'none';
         document.getElementById('catatan_cuti').required   = false;
         document.getElementById('catatan_magang').required = false;
+        document.getElementById('bukti_tf_cuti').required  = false;
       } else if(e.value == "KRS" || e.value == "TRANSKRIP") {
         document.getElementById('prasyarat').style.display        = 'block';
         document.getElementById('bukti_tf').required              = true;
@@ -233,6 +235,7 @@
         document.getElementById('divmagang').style.display = 'none';
         document.getElementById('catatan_cuti').required   = false;
         document.getElementById('catatan_magang').required = false;
+        document.getElementById('bukti_tf_cuti').required  = false;
 
         document.getElementById('prasyarat_ak02').style.display = 'none';
         document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
@@ -252,6 +255,7 @@
         document.getElementById('catatan_magang').required  = true;
         document.getElementById('divcuti').style.display    = 'none';
         document.getElementById('catatan_cuti').required    = false;
+        document.getElementById('bukti_tf_cuti').required   = false;
 
         document.getElementById('prasyarat').style.display = 'none';
         document.getElementById('bukti_tf').required       = false;
@@ -273,6 +277,7 @@
       } else if(e.value == "KET_CUTI") {
         document.getElementById('divcuti').style.display   = 'block';
         document.getElementById('catatan_cuti').required   = true;
+        document.getElementById('bukti_tf_cuti').required = true;
         document.getElementById('divmagang').style.display = 'none';
         document.getElementById('catatan_magang').required = false;
 
@@ -298,6 +303,7 @@
         document.getElementById('divmagang').style.display = 'none';
         document.getElementById('catatan_cuti').required   = false;
         document.getElementById('catatan_magang').required = false;
+        document.getElementById('bukti_tf_cuti').required  = false;
 
         document.getElementById('prasyarat').style.display = 'none';
         document.getElementById('bukti_tf').required       = false;

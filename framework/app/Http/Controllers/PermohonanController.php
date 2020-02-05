@@ -204,6 +204,11 @@ class PermohonanController extends Controller
 
         if (!empty($request->catatan_cuti)) {
             $surat->catatan_surat = $request->catatan_cuti;
+
+            $bukti_tf_cuti = $request->file('bukti_tf_cuti');
+            $fullBuktitfCutiName = time().'_buktitfcuti.'.$bukti_tf_cuti->getClientOriginalExtension();
+            $bukti_tf_cuti->move($destinationPath, $fullBuktitfCutiName);  
+            $surat->bukti_tf = $fullBuktitfCutiName;
         }
 
         if (!empty($request->bukti_tf)) {
@@ -424,9 +429,22 @@ class PermohonanController extends Controller
             $surat->catatan_surat = $request->catatan_surat;
         }
 
+        if (!empty($request->bukti_tf_cuti)) {
+            $bukti_tf_cuti = $request->file('bukti_tf_cuti');
+
+            $destinationPath = storage_path('app/public/images');
+            if(!is_dir($destinationPath)){
+                mkdir($destinationPath, 0755, true);
+            }
+            $fullBuktitfCutiName = time().'_buktitf.'.$bukti_tf_cuti->getClientOriginalExtension();
+            $bukti_tf_cuti->move($destinationPath, $fullBuktitfCutiName);  
+
+            $surat->bukti_tf = $fullBuktitfCutiName;
+        }
+
         $surat->save();
 
-        if (!empty($request->catatan_surat)) {
+        if (!empty($request->catatan_surat) || !empty($request->bukti_tf)) {
             $permohonan = Permohonan::find($request->permohonan_id);
 
             $permohonan->catatan = null;

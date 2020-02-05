@@ -153,7 +153,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="surat_keterangan_persetujuan_sidang" id="surat_keterangan_persetujuan_sidang" accept="image/*" onchange="readURL(this);" class="form-control"/>
                                     @endif
                                 @endif
@@ -167,7 +167,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="berita_acara_bimbingan" id="berita_acara_bimbingan" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -181,7 +181,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="surat_tugas_bimbingan" id="surat_tugas_bimbingan" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -197,7 +197,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="krs" id="krs" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -211,7 +211,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="ijazah" id="ijazah" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -225,7 +225,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="ak01" id="ak01" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -241,7 +241,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="transkrip_nilai" id="transkrip_nilai" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -255,7 +255,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="penilaian_proposal" id="penilaian_proposal" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -269,7 +269,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="data_diri" id="data_diri" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -285,7 +285,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="pasfoto_3x4" id="pasfoto_3x4" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -299,7 +299,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="pasfoto_4x6" id="pasfoto_4x6" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -313,7 +313,7 @@
                                 </a>
                                 @if(Auth::user()->role_id == 4)
                                   @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                     <input type='file' name="foto_copy_ktp" id="foto_copy_ktp" accept="image/*" onchange="readURL(this);" class="form-control" />
                                   @endif
                                 @endif
@@ -324,7 +324,7 @@
                       </div>
                       @if(Auth::user()->role_id == 4)
                         @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                           <button type="submit" class="btn btn-success mr-2">Update Prasyarat</button>
                         @endif
                       @endif
@@ -351,7 +351,7 @@
                             </a>
                             @if(Auth::user()->role_id == 4)
                               @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                              || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                              || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                 <input type='file' name="bukti_tf" id="bukti_tf" onchange="readURL(this);" class="form-control"/>
                               @endif
                             @endif
@@ -364,7 +364,7 @@
                               </a>
                               @if(Auth::user()->role_id == 4)
                                 @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                                || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                                || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                                   <input type='file' name="cover_proposal" id="cover_proposal" onchange="readURL(this);" class="form-control"/>
                                 @endif
                               @endif
@@ -374,7 +374,7 @@
                       </div>
                       @if(Auth::user()->role_id == 4)
                         @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                        || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                           <button type="submit" class="btn btn-success mr-2">Update Prasyarat</button>
                         @endif
                       @endif
@@ -385,7 +385,7 @@
 
                 <!-- MODAL CATATAN -->
                 <div id="catatan-{{ $v->surat_id }}" class="modal">
-                  <form method="POST" action="{{ url('permohonan/updateCatatan') }}">
+                  <form method="POST" action="{{ url('permohonan/updateCatatan') }}" enctype="multipart/form-data">
                     @csrf
                     @php($surat = App\Surat::find($v->surat_id))
                     <div class="form-group">
@@ -396,18 +396,48 @@
                         </div>
                       @endif
                       <div id="prasyarat">
-                        <label>Catatan Surat</label>
                         <input type="number" name="id" value="{{ $surat->id }}" hidden>
                         <input type="number" name="permohonan_id" value="{{ $v->id }}" hidden>
                         <div class="form-group">
                           @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                          || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                          || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                             @if(Auth::user()->role_id == 4)
+                              @if($surat->code == "KET-CUTI")
+                                <div class="form-group">
+                                  <label for="">Bukti TF</label><br>
+                                  <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}">
+                                    <img src="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                  </a>
+                                  @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                                  || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
+                                    <input type='file' name="bukti_tf_cuti" id="bukti_tf_cuti" onchange="readURL(this);" class="form-control"/>
+                                  @endif
+                                </div>
+                              @endif
+                              <label>Catatan Surat</label>
                               <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10">{{ $surat->catatan_surat }}</textarea>
                             @else
+                              @if($surat->code == "KET-CUTI")
+                                <div class="form-group">
+                                  <label for="">Bukti TF</label><br>
+                                  <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}">
+                                    <img src="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                  </a>
+                                </div>
+                              @endif
+                              <label>Catatan Surat</label>
                               <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10" disabled>{{ $surat->catatan_surat }}</textarea>
                             @endif
                           @else
+                            @if($surat->code == "KET-CUTI")
+                              <div class="form-group">
+                                <label for="">Bukti TF</label><br>
+                                <a target="_blank" href="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}">
+                                  <img src="{{ url('framework/storage/app/public/images/'.$surat->bukti_tf) }}" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;">
+                                </a>
+                              </div>
+                            @endif
+                            <label>Catatan Surat</label>
                             <textarea class="form-control" name="catatan_surat" id="catatan_surat" rows="10" disabled>{{ $surat->catatan_surat }}</textarea>
                           @endif
                         </div>
@@ -415,7 +445,7 @@
                     </div>
                     @if(Auth::user()->role_id == 4)
                       @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
-                      || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                      || $v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                         <button type="submit" class="btn btn-success mr-2">Update Catatan</button>
                       @endif
                     @endif
