@@ -455,18 +455,6 @@
                 </div>
                 <!-- END MODAL INFORMASI -->
                 <a href="#modal_notif_ak02" rel="modal:open" id="ak02CheckButton" style="display: none;"></a>
-
-                <!-- MODAL INFORMASI -->
-                <div class="modal" id="modal_notif_flexsm">
-                  <label>PERHATIAN!</label>
-                  @if(Auth::user()->flex_sm == 1)
-                    <p style="color: red;">Status Kemahasiswaan Anda adalah Tidak Aktif, Pengajuan pengaktifan Status Mahasiswa sedang dalam proses.</p>
-                  @else
-                    <p style="color: red;">Status Kemahasiswaan Anda adalah Tidak Aktif silahkan <a href="{{ url('users/requestFlexsm') }}" onclick="return confirm('Anda yakin ingin mengajukan pengaktifan Status Mahasiswa?');">klik dsini</a> untuk mengajukan pengaktifan Status Mahasiswa.</p>
-                  @endif
-                </div>
-                <!-- END MODAL INFORMASI -->
-                <a href="#modal_notif_flexsm" rel="modal:open" id="flexsmCheckButton" style="display: none;"></a>
                 @endforeach
               </tbody>
             </table>
@@ -580,18 +568,6 @@
       success: function(response){
         if (response > 0) {
           $('#ak02CheckButton')[0].click();
-        }
-      }
-    });   
-  </script>
-  <script type="text/javascript">
-    var baseUrl = "{{ url('/') }}";
-    $.ajax({
-      type: "GET",
-      url: baseUrl+"/users/statusMahasiswaCheck/",
-      success: function(response){
-        if (response > 0) {
-          $('#flexsmCheckButton')[0].click();
         }
       }
     });   

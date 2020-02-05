@@ -69,7 +69,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Status</label>
+          <label>Status Mahasiswa</label>
           <select class="form-control" name="status_mahasiswa" id="status_mahasiswa">
             <option value="">Pilih Status.</option>
             <option value="1" {{ ($users->status_mahasiswa == 1) ? 'selected' : '' }}>Aktif</option>

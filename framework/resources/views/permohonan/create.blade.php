@@ -53,6 +53,11 @@
             <div class="form-group">
               <textarea class="form-control" name="catatan_cuti" id="catatan_cuti" placeholder="Isi dengan alasan anda mengambil cuti." style="height: 150px"></textarea>
             </div>
+            <div class="form-group">
+              <label for="">Bukti TF</label><br>
+              <img src="" alt="" style="width: 100px;height: 100px;margin-bottom: 10px;display: none;">
+              <input type='file' name="bukti_tf" id="bukti_tf" accept="image/*" onchange="readURL(this);" class="form-control" />
+            </div>
           </div>
           <div id="divmagang" style="display: none;">
             <br>
