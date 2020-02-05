@@ -5,26 +5,25 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Permohonan;
+use App\User;
 use Config;
 
 class Helper extends Model
 {
-    public static function countPetugasTask()
+    public static function countKabagTask()
     {
-    	$permohonan = Permohonan::where('status', Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN'))->count();
+    	$permohonan = Permohonan::leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id')
+    						->where('permohonan.status', Config('constants.PERMOHONAN_BERHASIL_DIAJUKAN'))
+    						->count();
 
     	return $permohonan;
     }
 
-    public static function countKabagTask()
+    public static function countFlexSM()
     {
-    	$permohonan = Permohonan::leftJoin('surat', 'surat.id', '=', 'permohonan.surat_id')
-    						->where('permohonan.status', Config('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK'))
-    						->where('surat.nama_surat', '<>', "KRS")
-    						->where('surat.nama_surat', '<>', "Transkrip")
-    						->count();
+        $users = User::where('flex_sm', 1)->count();
 
-    	return $permohonan;
+        return $users;
     }
 
     public static function generateDateRange($start_date, $end_date)

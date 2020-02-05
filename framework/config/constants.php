@@ -16,10 +16,11 @@ return [
 
 	// STATUS PERMOHONAN
 	'PERMOHONAN_BERHASIL_DIAJUKAN' 			=> "Permohonan berhasil diajukan",
-	'MENUNGGU_PERSETUJUAN_PETUGAS_AKADEMIK' => "Menunggu persetujuan petugas akademik",
-	'PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK' 	=> "Permohonan ditolak petugas akademik",
-	'PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK' => "Permohonan disetujui petugas akademik",
-	'MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK' 	=> "Menunggu persetujuan kepala akademik",
+	// 'MENUNGGU_PERSETUJUAN_PETUGAS_AKADEMIK' => "Menunggu persetujuan petugas akademik",
+	// 'PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK' 	=> "Permohonan ditolak petugas akademik",
+	// 'PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK' => "Permohonan disetujui petugas akademik",
+	// 'MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK' 	=> "Menunggu persetujuan kepala akademik",
+	'PERMOHONAN_DITOLAK_KEPALA_AKADEMIK' 	=> "Permohonan ditolak kepala akademik",
 	'PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK' 	=> "Permohonan disetujui kepala akademik",
 
 	//STATUS PERMOHONAN

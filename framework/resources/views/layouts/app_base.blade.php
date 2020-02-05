@@ -93,19 +93,24 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
+          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
             <li class="nav-item">
               <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="menu-icon mdi mdi-account-box"></i>
-                @if(Auth::user()->role_id == 3)
+                @if(Auth::user()->role_id == 2)
                   <span class="menu-title">Mahasiswa</span>
+                  @if(Auth::user()->role_id == 2 && App\Helper::countFlexSM() > 0)
+                  <span class="badge badge-pill badge-danger" style="margin-right: 20%">
+                      {{ App\Helper::countFlexSM() }}
+                  </span>
+                  @endif
                 @else
                   <span class="menu-title">Users</span>
                 @endif
               </a>
             </li>
           @endif
-          @if(Auth::user()->role_id == 3)
+          @if(Auth::user()->role_id == 2)
             <li class="nav-item">
               <a class="nav-link" href="{{ route('prodi.index') }}">
                 <i class="menu-icon mdi mdi-format-float-left"></i>
@@ -118,11 +123,6 @@
               <a class="nav-link" href="{{ route('permohonan.index') }}">
                 <i class="menu-icon mdi mdi-clipboard-text"></i>
                 <span class="menu-title">Permohonan</span>
-                @if(Auth::user()->role_id == 3 && App\Helper::countPetugasTask() > 0)
-                  <span class="badge badge-pill badge-danger" style="margin-right: 20%">
-                      {{ App\Helper::countPetugasTask() }}
-                  </span>
-                @endif
                 @if(Auth::user()->role_id == 2 && App\Helper::countKabagTask() > 0)
                   <span class="badge badge-pill badge-danger" style="margin-right: 20%">
                       {{ App\Helper::countKabagTask() }}

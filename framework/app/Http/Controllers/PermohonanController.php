@@ -49,7 +49,7 @@ class PermohonanController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role_id == 1) {
+        if(Auth::user()->role_id == 1 || Auth::user()->status_mahasiswa == 2) {
             return abort(401);
         }
         
@@ -501,17 +501,12 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::find($id);
         $surat = Surat::find($permohonan->surat_id);
 
-        if (Auth::user()->role_id == 3) {
+        if (Auth::user()->role_id == 2) {
 
             if ($surat->nama_surat == "KRS" || $surat->nama_surat == "Transkrip") {
                 $permohonan->catatan = "Surat telah disetujui, Silahkan ambil dibagian akademik.";
             }
 
-            $permohonan->status = Config('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK');
-            $permohonan->save();
-        }
-
-        if (Auth::user()->role_id == 2) {
             $permohonan->status = Config('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK');
             $permohonan->save();
 
@@ -528,7 +523,7 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::find($request->id);
 
         $permohonan->catatan = $request->catatan;
-        $permohonan->status = Config('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK');
+        $permohonan->status = Config('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK');
         $permohonan->save();
 
         return redirect()->route('permohonan.index')->with('alert', 'Permohonan berhasil ditolak!');

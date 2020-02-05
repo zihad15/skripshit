@@ -23,7 +23,9 @@
             <div class="col-md-1"></div>
             <div class="col-md-2">
               @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 1)
-                <a href="{{ route('permohonan.create') }}" class="btn btn-md btn-success card-title">+ Tambah Permohonan</a>
+                @if(Auth::user()->status_mahasiswa != 2)
+                  <a href="{{ route('permohonan.create') }}" class="btn btn-md btn-success card-title">+ Tambah Permohonan</a>
+                @endif
               @endif
             </div>
           </div>
@@ -75,20 +77,9 @@
                   <td>
                     @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN'))
-                      <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
-                      <p class="btn-sm btn-warning" style="color: white;">
-                        {{ Config::get('constants.MENUNGGU_PERSETUJUAN_PETUGAS_AKADEMIK') }}
-                      </p>
-                    @elseif($v->status == Config::get('constants.PERMOHONAN_DITOLAK_PETUGAS_AKADEMIK'))
+                      <p style="text-align: center; color: white;" class="btn-sm btn-warning">{{ $v->status }}</p>
+                    @elseif($v->status == Config::get('constants.PERMOHONAN_DITOLAK_KEPALA_AKADEMIK'))
                       <p style="text-align: center;" class="btn-sm btn-danger">{{ $v->status }}</p>
-                    @elseif($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK'))
-                      <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
-                      @if($surat->nama_surat != "KRS" 
-                      && $surat->nama_surat != "Transkrip")
-                        <p class="btn-sm btn-warning" style="color: white;">
-                          {{ Config::get('constants.MENUNGGU_PERSETUJUAN_KEPALA_AKADEMIK') }}
-                        </p>
-                      @endif
                     @elseif($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
                       <p style="text-align: center;" class="btn-sm btn-success">{{ $v->status }}</p>
                     @endif
@@ -97,15 +88,20 @@
                   <td>
                     @php($surat = App\Surat::find($v->surat_id))
                     @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_KEPALA_AKADEMIK'))
-                      @if(Auth::user()->role_id == 4 && $surat->code == "KET-AAK02")
+                      @if(Auth::user()->role_id == 4 
+                      && $surat->code == "KET-AAK02"
+                      || $surat->nama_surat == "KRS" 
+                      || $surat->nama_surat == "Transkrip")
 
                       @else
-                        <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
-                          @csrf
-                          <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
-                          <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
-                          <button class="btn btn-sm btn-success">Download Surat</button>
-                        </form>
+                        @if(Auth::user()->status_mahasiswa != 2)
+                          <form action="{{ url('permohonan/downloadPDF') }}" method="GET" style="white-space: nowrap;">
+                            @csrf
+                            <input type="number" name="surat_id" value="{{ $v->surat_id }}" hidden>
+                            <input type="number" name="user_id" value="{{ $v->user_id }}" hidden>
+                            <button class="btn btn-sm btn-success">Download Surat</button>
+                          </form>
+                        @endif
                       @endif
                     @elseif(Auth::user()->role_id != 4 
                     && $surat->nama_surat != "KRS" 
@@ -121,13 +117,9 @@
                   @if(Auth::user()->role_id != 4)
                     @php($surat = App\Surat::find($v->surat_id))
                     <td>
-                      @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') && Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
-                          <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success" onclick="return confirm('Anda yakin?');">Terima</a>
+                      @if($v->status == Config::get('constants.PERMOHONAN_BERHASIL_DIAJUKAN') 
+                      && Auth::user()->role_id == 2)
                           <a href="#penolakan-{{ $v->surat_id }}" rel="modal:open" class="btn btn-sm btn-danger">Tolak</a>
-                      @endif
-                      @if($v->status == Config::get('constants.PERMOHONAN_DISETUJUI_PETUGAS_AKADEMIK') 
-                      && Auth::user()->role_id == 2 && $surat->nama_surat != "KRS" 
-                      && $surat->nama_surat != "Transkrip")
                           <a href="{{ url('permohonan/terima', $v->id) }}" class="btn btn-sm btn-success" onclick="return confirm('Anda yakin?');">Terima</a>
                       @endif
                     </td>
@@ -463,6 +455,18 @@
                 </div>
                 <!-- END MODAL INFORMASI -->
                 <a href="#modal_notif_ak02" rel="modal:open" id="ak02CheckButton" style="display: none;"></a>
+
+                <!-- MODAL INFORMASI -->
+                <div class="modal" id="modal_notif_flexsm">
+                  <label>PERHATIAN!</label>
+                  @if(Auth::user()->flex_sm == 1)
+                    <p style="color: red;">Status Kemahasiswaan Anda adalah Tidak Aktif, Pengajuan pengaktifan Status Mahasiswa sedang dalam proses.</p>
+                  @else
+                    <p style="color: red;">Status Kemahasiswaan Anda adalah Tidak Aktif silahkan <a href="{{ url('users/requestFlexsm') }}" onclick="return confirm('Anda yakin ingin mengajukan pengaktifan Status Mahasiswa?');">klik dsini</a> untuk mengajukan pengaktifan Status Mahasiswa.</p>
+                  @endif
+                </div>
+                <!-- END MODAL INFORMASI -->
+                <a href="#modal_notif_flexsm" rel="modal:open" id="flexsmCheckButton" style="display: none;"></a>
                 @endforeach
               </tbody>
             </table>
@@ -580,9 +584,16 @@
       }
     });   
   </script>
- <!-- <script type="text/javascript">
-$(function(){
-  
-});
-</script> -->
+  <script type="text/javascript">
+    var baseUrl = "{{ url('/') }}";
+    $.ajax({
+      type: "GET",
+      url: baseUrl+"/users/statusMahasiswaCheck/",
+      success: function(response){
+        if (response > 0) {
+          $('#flexsmCheckButton')[0].click();
+        }
+      }
+    });   
+  </script>
 @endsection

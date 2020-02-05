@@ -68,6 +68,14 @@
             <option value="2" {{ ($users->status == 2) ? 'selected' : '' }}>Tidak Aktif</option>
           </select>
         </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" name="status_mahasiswa" id="status_mahasiswa">
+            <option value="">Pilih Status.</option>
+            <option value="1" {{ ($users->status_mahasiswa == 1) ? 'selected' : '' }}>Aktif</option>
+            <option value="2" {{ ($users->status_mahasiswa == 2) ? 'selected' : '' }}>Tidak Aktif</option>
+          </select>
+        </div>
         <button type="submit" class="btn btn-success mr-2">Submit</button>
       </form>
   </div>

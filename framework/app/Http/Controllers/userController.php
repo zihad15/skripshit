@@ -20,7 +20,7 @@ class UserController extends Controller
         $users = User::leftJoin('roles', 'roles.id', '=', 'users.role_id')
                     ->leftJoin('prodi', 'prodi.id', '=', 'users.prodi_id');
 
-        if (Auth::user()->role_id == 3) {
+        if (Auth::user()->role_id == 2) {
             $users = $users->where('role_id', 4);
         }
          
@@ -63,6 +63,7 @@ class UserController extends Controller
         $users->role_id = $request->role_id;
         $users->jenjang_pendidikan = $request->jenjang_pendidikan;
         $users->status = 1;
+        $users->status_mahasiswa = 1;
         $users->created_by = Auth::user()->name;
 
         if (!empty($request->prodi_id)) {
@@ -115,7 +116,12 @@ class UserController extends Controller
         $users->role_id = $request->role_id;
         $users->jenjang_pendidikan = $request->jenjang_pendidikan;
         $users->status = $request->status;
+        $users->status_mahasiswa = $request->status_mahasiswa;
         $users->created_by = Auth::user()->name;
+
+        if ($request->status_mahasiswa == 1) {
+            $users->flex_sm = null;
+        }
 
         if (!empty($request->prodi_id)) {
             $users->prodi_id = $request->prodi_id;
@@ -175,5 +181,21 @@ class UserController extends Controller
         $users->save();
 
         return redirect()->back()->with('alert', "Data berhasil diupdate!");
+    }
+
+    public function statusMahasiswaCheck()
+    {
+        $users = User::where('status_mahasiswa', 2)->where('id', Auth::user()->id)->count();
+
+        return $users;
+    }
+
+    public function requestFlexsm()
+    {
+        $users = User::find(Auth::user()->id);
+        $users->flex_sm = 1;
+        $users->save();
+
+        return redirect()->back()->with('alert', "Pengajuan Pengaktifan Status Mahasiswa Berhasil!");
     }
 }

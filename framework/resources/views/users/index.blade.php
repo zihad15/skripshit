@@ -13,7 +13,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-2">
-              <h4 class="card-title">Permohonan Anda</h4>
+              <h4 class="card-title">Data Mahasiswa</h4>
             </div>
             <div class="col-md-7"></div>
             <div class="col-md-2">
@@ -38,13 +38,21 @@
                   <th>E-mail</th>
                   <th>No HP</th>
                   <th>Status</th>
+                  <th>Status Mahasiswa</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
               	@foreach($users as $v)
               	<tr>
-              		<td>{{ $v->name }}</td>
+              		<td>
+                    @if($v->flex_sm == 1)
+                    <span class="badge badge-pill badge-danger">
+                      1
+                    </span>
+                    @endif
+                    {{ $v->name }}
+                  </td>
               		<td>{{ $v->role_name }}</td>
                   <td>
                     @if(isset($v->nama_prodi))
@@ -57,7 +65,14 @@
               		<td>{{ $v->email }}</td>
               		<td>{{ $v->no_hp }}</td>
               		<td>
-                      @if($v-> status == 1)
+                      @if($v->status == 1)
+                        Aktif
+                      @else 
+                      Tidak Aktif
+                      @endif
+                  </td>
+                  <td>
+                      @if($v->status_mahasiswa == 1)
                         Aktif
                       @else 
                       Tidak Aktif

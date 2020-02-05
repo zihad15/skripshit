@@ -46,6 +46,9 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
 
 	Route::get('kelola-profil/{id}', 'UserController@kelolaProfil');
 	Route::post('kelolaProfilSubmit', 'UserController@kelolaProfilSubmit');
+
+	Route::get('statusMahasiswaCheck', 'UserController@statusMahasiswaCheck');
+	Route::get('requestFlexsm', 'UserController@requestFlexsm');
 });
 
 Route::group(['prefix' => 'prodi', 'middleware' => 'auth', 'as' => 'prodi.'], function(){
