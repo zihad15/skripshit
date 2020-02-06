@@ -36,7 +36,6 @@
           <select class="form-control" name="role_id" id="role_id" onchange="showDiv(this)">
             <option value="">Pilih roles untuk user.</option>
             <option value="4" {{ ($users->role_id == 4) ? 'selected' : '' }}>Mahasiswa</option>
-            <option value="3" {{ ($users->role_id == 3) ? 'selected' : '' }}>Petugas Akademik</option>
             <option value="2" {{ ($users->role_id == 2) ? 'selected' : '' }}>Kabag Akademik</option>
           </select>
         </div>
@@ -59,6 +58,14 @@
               <option value="strata tiga" {{ ($users->jenjang_pendidikan == "strata tiga") ? 'selected' : '' }}>Strata Tiga</option>
             </select>
           </div>
+          <div class="form-group">
+            <label>Status Mahasiswa</label>
+            <select class="form-control" name="status_mahasiswa" id="status_mahasiswa">
+              <option value="">Pilih Status.</option>
+              <option value="1" {{ ($users->status_mahasiswa == 1) ? 'selected' : '' }}>Aktif</option>
+              <option value="2" {{ ($users->status_mahasiswa == 2) ? 'selected' : '' }}>Tidak Aktif</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
           <label>Status</label>
@@ -66,14 +73,6 @@
             <option value="">Pilih Status.</option>
             <option value="1" {{ ($users->status == 1) ? 'selected' : '' }}>Aktif</option>
             <option value="2" {{ ($users->status == 2) ? 'selected' : '' }}>Tidak Aktif</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Status Mahasiswa</label>
-          <select class="form-control" name="status_mahasiswa" id="status_mahasiswa">
-            <option value="">Pilih Status.</option>
-            <option value="1" {{ ($users->status_mahasiswa == 1) ? 'selected' : '' }}>Aktif</option>
-            <option value="2" {{ ($users->status_mahasiswa == 2) ? 'selected' : '' }}>Tidak Aktif</option>
           </select>
         </div>
         <button type="submit" class="btn btn-success mr-2">Submit</button>
@@ -89,10 +88,12 @@
         document.getElementById('mahasiswa_requirements').style.display = 'block';
         document.getElementById('prodi_id').required                    = true;
         document.getElementById('jenjang_pendidikan').required          = true;
+        document.getElementById('status_mahasiswa').required            = true;
       } else {
         document.getElementById('mahasiswa_requirements').style.display = 'none';
         document.getElementById('prodi_id').required                    = false;
         document.getElementById('jenjang_pendidikan').required          = false;
+        document.getElementById('status_mahasiswa').required            = false;
       }
     }
   </script>

@@ -31,7 +31,6 @@
           <select class="form-control" name="role_id" id="role_id" onchange="showDiv(this)" required>
             <option value="">Pilih roles untuk user.</option>
             <option value="4">Mahasiswa</option>
-            <option value="3">Petugas Akademik</option>
             <option value="2">Kabag Akademik</option>
           </select>
         </div>
