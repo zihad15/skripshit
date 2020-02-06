@@ -41,8 +41,7 @@ class HomeController extends Controller
         foreach ($date as $v) {
             $data =  DB::select("
                 SELECT COUNT(CASE WHEN status = 'Permohonan berhasil diajukan' AND created_at LIKE '$v%' THEN 1 END) AS permohonan_diajukan,
-                COUNT(CASE WHEN status = 'Permohonan ditolak petugas akademik' AND created_at LIKE '$v%' THEN 1 END) AS ditolak_petugas,
-                COUNT(CASE WHEN status = 'Permohonan disetujui petugas akademik' AND created_at LIKE '$v%' THEN 1 END) AS disetujui_petugas,
+                COUNT(CASE WHEN status = 'Permohonan ditolak kepala akademik' AND created_at LIKE '$v%' THEN 1 END) AS ditolak_kepala,
                 COUNT(CASE WHEN status = 'Permohonan disetujui kepala akademik' AND created_at LIKE '$v%' THEN 1 END) AS disetujui_kepala
                 FROM permohonan"
             );

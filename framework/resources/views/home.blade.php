@@ -142,8 +142,7 @@
           var arrData = [
             ['TODAY - 7 DAYS AGO',
             'PERMOHONAN DIAJUKAN',
-            'DITOLAK PETUGAS AKADEMIK',
-            'DISETUJUI PETUGAS AKADEMIK',
+            'DITOLAK KEPALA AKADEMIK',
             'DISETUJUI KEPALA AKADEMIK']
           ];            
 
@@ -151,8 +150,7 @@
             var arrJson = [
               v.date,
               v.data[0].permohonan_diajukan,
-              v.data[0].ditolak_petugas,
-              v.data[0].disetujui_petugas,
+              v.data[0].ditolak_kepala,
               v.data[0].disetujui_kepala,
             ];
             
