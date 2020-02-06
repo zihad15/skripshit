@@ -537,6 +537,40 @@
       "12"
     ];
 
+    var dateNumber = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+    ];
+
     var today = d.getDate()+"/"+months[d.getMonth()]+"/"+d.getFullYear();
 
     var d7 = new Date(Date.now()-30*24*60*60*1000);
@@ -554,14 +588,14 @@
         format: 'D/MMMM/YYYY'
       }, 
     }, function(start, end, label) {
-      sdate = start.format('YYYY-MM-DD');
-      edate = end.format('YYYY-MM-DD');
+      sdate = start.format('YYYYMMD');
+      edate = end.format('YYYYMMD');
 
       $.fn.dataTableExt.afnFiltering.push(
         function( settings, data, dataIndex ) {
             var d = new Date(data[0]);
-            var date = d.getFullYear()+"-"+monthsnumber[d.getMonth()]+"-"+d.getDate();
-            if (sdate <= date   && date <= edate )
+            var date = d.getFullYear()+""+monthsnumber[d.getMonth()]+""+d.getDate();
+            if (parseInt(sdate) <= parseInt(date) && parseInt(date) <= parseInt(edate))
             {
                 return true;
             }
