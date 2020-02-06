@@ -160,7 +160,7 @@
           var data = google.visualization.arrayToDataTable(arrData);
 
           var options = {
-            title: 'Users Tagging Chart',
+            title: 'CHART HISTORY PENGAJUAN PERMOHONAN',
             curveType: 'function',
             legend: { position: 'bottom' }
           };
