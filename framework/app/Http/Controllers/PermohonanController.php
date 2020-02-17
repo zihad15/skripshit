@@ -202,6 +202,10 @@ class PermohonanController extends Controller
             $surat->catatan_surat = $request->catatan_magang;
         }
 
+        if (!empty($request->catatan_ska)) {
+            $surat->catatan_surat = $request->catatan_ska;
+        }
+
         if (!empty($request->catatan_cuti)) {
             $surat->catatan_surat = $request->catatan_cuti;
 
@@ -235,7 +239,7 @@ class PermohonanController extends Controller
 
         if (!empty($request->bukti_tf) || !empty($request->cover_proposal)) {
             $permohonan->prasyarat = 1;
-        } elseif(!empty($request->catatan_cuti) || !empty($request->catatan_magang)) {
+        } elseif(!empty($request->catatan_cuti) || !empty($request->catatan_magang) || !empty($request->catatan_ska)) {
             $permohonan->prasyarat = 2;
         } elseif ($nama_dan_code[0] == "KET-AAK02") {
             $permohonan->prasyarat = 3;

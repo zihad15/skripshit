@@ -69,6 +69,16 @@
               <textarea class="form-control" name="catatan_magang" id="catatan_magang" placeholder="Isi dengan nama perusahaan/institusi, dan alamat tempat anda riset/magang." style="height: 150px"></textarea>
             </div>
           </div>
+          <div id="divska" style="display: none;">
+            <br>
+            <div style="white-space: nowrap;">
+              <label>Catatan</label>
+              <label style="color: red; font-size: 10px;">Isi dengan alasan pengajuan surat.</label>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="catatan_ska" id="catatan_ska" placeholder="Isi dengan alasan pengajuan surat." style="height: 150px"></textarea>
+            </div>
+          </div>
           <div id="prasyarat_ak02" style="display: none;">
             <br>
             <h5>Prasyarat</h5>
@@ -201,6 +211,37 @@
         document.getElementById('pasfoto_3x4').required                         = false;
         document.getElementById('pasfoto_4x6').required                         = false;
         document.getElementById('foto_copy_ktp').required                       = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
+      } else if (e.value == "KET_AKTIF") {
+        document.getElementById('divska').style.display = 'block';
+        document.getElementById('catatan_ska').required = true;
+
+        document.getElementById('prasyarat').style.display        = 'none';
+        document.getElementById('divcoverproposal').style.display = 'none';
+        document.getElementById('bukti_tf').required              = false;
+        document.getElementById('cover_proposal').required        = false;
+
+        document.getElementById('divcuti').style.display   = 'none';
+        document.getElementById('divmagang').style.display = 'none';
+        document.getElementById('catatan_cuti').required   = false;
+        document.getElementById('catatan_magang').required = false;
+        document.getElementById('bukti_tf_cuti').required  = false;
+
+        document.getElementById('prasyarat_ak02').style.display = 'none';
+        document.getElementById('surat_keterangan_persetujuan_sidang').required = false;
+        document.getElementById('ijazah').required                              = false;
+        document.getElementById('transkrip_nilai').required                     = false;
+        document.getElementById('krs').required                                 = false;
+        document.getElementById('berita_acara_bimbingan').required              = false;
+        document.getElementById('ak01').required                                = false;
+        document.getElementById('surat_tugas_bimbingan').required               = false;
+        document.getElementById('penilaian_proposal').required                  = false;
+        document.getElementById('data_diri').required                           = false;
+        document.getElementById('pasfoto_3x4').required                         = false;
+        document.getElementById('pasfoto_4x6').required                         = false;
+        document.getElementById('foto_copy_ktp').required                       = false;
       } else if(e.value == "KET_AK02") {
         document.getElementById('prasyarat_ak02').style.display                 = 'block';
         document.getElementById('surat_keterangan_persetujuan_sidang').required = true;
@@ -225,6 +266,9 @@
         document.getElementById('catatan_cuti').required   = false;
         document.getElementById('catatan_magang').required = false;
         document.getElementById('bukti_tf_cuti').required  = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
       } else if(e.value == "KRS" || e.value == "TRANSKRIP") {
         document.getElementById('prasyarat').style.display        = 'block';
         document.getElementById('bukti_tf').required              = true;
@@ -250,6 +294,9 @@
         document.getElementById('pasfoto_3x4').required                         = false;
         document.getElementById('pasfoto_4x6').required                         = false;
         document.getElementById('foto_copy_ktp').required                       = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
       } else if(e.value == "KET_MAGANG") {
         document.getElementById('divmagang').style.display  = 'block';
         document.getElementById('catatan_magang').required  = true;
@@ -274,6 +321,9 @@
         document.getElementById('pasfoto_3x4').required                         = false;
         document.getElementById('pasfoto_4x6').required                         = false;
         document.getElementById('foto_copy_ktp').required                       = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
       } else if(e.value == "KET_CUTI") {
         document.getElementById('divcuti').style.display   = 'block';
         document.getElementById('catatan_cuti').required   = true;
@@ -298,6 +348,9 @@
         document.getElementById('pasfoto_3x4').required                         = false;
         document.getElementById('pasfoto_4x6').required                         = false;
         document.getElementById('foto_copy_ktp').required                       = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
       } else {
         document.getElementById('divcuti').style.display   = 'none';
         document.getElementById('divmagang').style.display = 'none';
@@ -322,6 +375,9 @@
         document.getElementById('pasfoto_3x4').required                         = false;
         document.getElementById('pasfoto_4x6').required                         = false;
         document.getElementById('foto_copy_ktp').required                       = false;
+
+        document.getElementById('divska').style.display = 'none';
+        document.getElementById('catatan_ska').required = false;
       }
     }
   </script>
